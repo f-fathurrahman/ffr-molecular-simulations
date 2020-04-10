@@ -1,4 +1,5 @@
 using Printf
+using Random
 
 const NDIM = 2
 const LJ2ANG = 3.4  # LJ unit to Angstrom
@@ -66,33 +67,37 @@ function init_Params( input_vars::InputVars )
 end
 
 include("init_coords.jl")
+include("init_velocities.jl")
+include("init_accelarations.jl")
+include("print_mol_xyz.jl")
 
 function main()
     
+    Random.seed!(1234)
+
     input_vars = init_InputVars()
     @show input_vars
     
     params = init_Params(input_vars)
     @show params
 
-    mol = init_coords(input_vars, params)
+    mol = init_coords( input_vars, params )
+    init_velocities!( mol, input_vars, params )
+    init_accelarations!( mol )
+    
+    println(mol[1].r)
+    println(mol[1].rv)
+    
+    println(mol[2].r)
+    println(mol[2].rv)
+    
+    print_mol_xyz( mol, "TRAJ_0.xyz", "w", LJ2ANG )
 
     println("Pass here ...")
 end
 
 
 #=
-
-include("InitVels.jl")
-InitVels()
-
-include("InitAccels.jl")
-InitAccels()
-
-InitAccels()
-
-include("PrintMolXYZ.jl")
-PrintMolXYZ( mol, "COORDS_0.xyz", "w" )
 
 totEnergy = Prop(0.0, 0.0, 0.0)
 kinEnergy = Prop(0.0, 0.0, 0.0)
