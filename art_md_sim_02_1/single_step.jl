@@ -35,7 +35,7 @@ function single_step!(
             totEnergy.s, totEnergy.s2, kinEnergy.s, kinEnergy.s2,
             pressure.s, pressure.s2 )
 
-        print_mol_xyz( mol, "TRAJ_0.xyz", "a", LJ2ANG )
+        #print_mol_xyz( mol, "TRAJ_0.xyz", "a", LJ2ANG )
 
         #@printf("%5d %18.10f %18.10f\n", step_count, time_now, (vSum[1] + vSum[1])/nMol )
         #@printf("%5d %18.10f %18.10f %18.10f\n", step_count, time_now, totEnergy.s, totEnergy.s2 )

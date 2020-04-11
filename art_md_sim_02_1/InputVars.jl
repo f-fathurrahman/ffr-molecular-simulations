@@ -11,10 +11,10 @@ end
 function init_InputVars()
     Δt = 0.005
     density = 0.8
-    initUcell = [30,30]
-    step_avg = 1 #100
+    initUcell = [20,20]
+    step_avg = 100
     step_equil = 0
-    step_limit = 100 #10000
+    step_limit = 10000
     temperature = 1.0
     return InputVars(Δt, density, initUcell, step_avg, step_equil, step_limit, temperature)
 end
