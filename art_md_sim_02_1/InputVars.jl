@@ -1,0 +1,20 @@
+mutable struct InputVars
+    Δt::Float64
+    density::Float64
+    initUcell::Vector{Int64}
+    step_avg::Int64
+    step_equil::Int64
+    step_limit::Int64
+    temperature::Int64
+end
+
+function init_InputVars()
+    Δt = 0.005
+    density = 0.8
+    initUcell = [30,30]
+    step_avg = 1 #100
+    step_equil = 0
+    step_limit = 100 #10000
+    temperature = 1.0
+    return InputVars(Δt, density, initUcell, step_avg, step_equil, step_limit, temperature)
+end
