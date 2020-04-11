@@ -1,0 +1,224 @@
+ --- temp 0.728 
+ **************** MC_NPT ***************
+  ******** test random numbers ***********
+  i,ranf()            1  0.12718882392073105     
+  i,ranf()            2  0.75704766281403801     
+  i,ranf()            3  0.47566395776169390     
+  i,ranf()            4  0.12919149531290020     
+  i,ranf()            5  0.56378418122614760     
+ Initialisation on lattice: 
+       108 particles placed on a lattice
+ Initial temperature     : 0.725
+ Velocity centre of mass : 
+          x = 0.83E-16
+          y = 0.29E-16
+          z = -.21E-16
+  Number of particles                        :       108
+  Density                                    :     0.844
+  Box length                                 :     5.039
+
+  Initial Temperature                         :     0.725
+    velocity centre of mass x-dir            :     0.000
+    velocity centre of mass y-dir            :     0.000
+    velocity centre of mass z-dir            :    -0.000
+  Time step                                   :     0.001
+  Total simulation time                       :       0.50
+  Equilibration                               :       0.00
+  Number of timesteps between two samples     :          1
+  Number of timesteps between two samples g(r):         10
+ Simulations with TRUNCATED AND SHIFTED potential: 
+ Potential truncated at                      :     2.500
+ Energy shift                                : -0.016317
+
+
+ Total pot. energy in. conf.       :   -351.09710
+ Total kinetic energy in. conf.    :    117.38202
+ Total energy in. conf.            :   -116.33307
+ Total virial initial configuration:   4319.14894
+ ======>> Done    5.00000007E-02  out of   0.500000000      -233.56124027163108     
+ ======>> Done   0.100000001      out of   0.500000000      -233.56614776108631     
+ ======>> Done   0.150000006      out of   0.500000000      -233.56933155277193     
+ ======>> Done   0.200000003      out of   0.500000000      -233.56964440208390     
+ ======>> Done   0.250000000      out of   0.500000000      -233.57029249128755     
+ ======>> Done   0.300000012      out of   0.500000000      -233.57450652760457     
+ ======>> Done   0.349999994      out of   0.500000000      -233.57228234633274     
+ ======>> Done   0.400000006      out of   0.500000000      -233.57272494186478     
+ ======>> Done   0.449999988      out of   0.500000000      -233.57415308220538     
+ ======>> Done   0.500000000      out of   0.500000000      -233.57056883445685     
+ Energy and pressure calculated from g(r) 
+     Number of samples     :       50
+     Average temperature   :    1.304
+     Energy                :   -4.117
+     Pressure              :    6.858
+
+ Shear viscosity: 
+  xy component :        0.000
+  xz component :        0.000
+  yz component :        0.000
+  Average      :        0.000
+
+   6.93166447       0.00000000    
+   20.6628819       0.00000000    
+   17.0578499       0.00000000    
+ Total energy end of simulation    :   -233.21278
+ Total virial end of simulation    :   1596.03485
+  ***** Calculate block averages ************
+   number of averages            3
+ block data     1   0.668950  12.077577  -3.166155
+ block data     2   0.457262  12.971003  -2.848503
+ block data     3   0.558782  12.167592  -3.000839
+ block data     4   0.753736  10.802429  -3.293285
+ block data     5   0.898912   9.673625  -3.511009
+ block data     6   1.165247   7.922017  -3.910535
+ block data     7   1.432477   6.188818  -4.311404
+ block data     8   1.562258   5.248502  -4.506073
+ block data     9   1.608638   4.845416  -4.575642
+ block data    10   1.631843   4.638701  -4.610499
+ block data    11   1.585675   4.801063  -4.541204
+ block data    12   1.617232   4.585175  -4.588578
+ block data    13   1.553745   4.878790  -4.493333
+ block data    14   1.478296   5.268398  -4.380136
+ block data    15   1.506925   5.156448  -4.423117
+ block data    16   1.469086   5.424159  -4.366345
+ block data    17   1.423136   5.745111  -4.297406
+ block data    18   1.474664   5.514839  -4.374722
+ block data    19   1.541464   5.162076  -4.474919
+ block data    20   1.548569   5.137613  -4.485590
+ ###### tot en        1.29684496         0.08620188
+ ###### pot en        6.91046751         0.63288697
+ ###### kin en       -4.10796468         0.12930767
+   number of blocks          500
+         0   0.0173   0.0005   0.1267   0.0040   0.0259   0.0008
+         1   0.0244   0.0011   0.1794   0.0080   0.0366   0.0016
+         2   0.0346   0.0022   0.2542   0.0161   0.0519   0.0033
+         3   0.0495   0.0045   0.3633   0.0329   0.0742   0.0067
+         4   0.0704   0.0091   0.5174   0.0668   0.1057   0.0136
+         5   0.1034   0.0195   0.7615   0.1439   0.1552   0.0293
+         6   0.1582   0.0457   1.1709   0.3380   0.2374   0.0685
+         7   0.2814   0.1407   2.0640   1.0320   0.4220   0.2110
+ --- temp 0.728 
+  ***** Calculate block averages ************
+   number of averages            3
+ block data     1        NaN        NaN        NaN
+ block data     2        NaN        NaN        NaN
+ block data     3        NaN        NaN        NaN
+ block data     4        NaN        NaN        NaN
+ block data     5        NaN        NaN        NaN
+ block data     6        NaN        NaN        NaN
+ block data     7        NaN        NaN        NaN
+ block data     8        NaN        NaN        NaN
+ block data     9        NaN        NaN        NaN
+ block data    10        NaN        NaN        NaN
+ block data    11        NaN        NaN        NaN
+ block data    12        NaN        NaN        NaN
+ block data    13        NaN        NaN        NaN
+ block data    14        NaN        NaN        NaN
+ block data    15        NaN        NaN        NaN
+ block data    16        NaN        NaN        NaN
+ block data    17        NaN        NaN        NaN
+ block data    18        NaN        NaN        NaN
+ block data    19        NaN        NaN        NaN
+ block data    20        NaN        NaN        NaN
+ ###### tot en               NaN                NaN
+ ###### pot en               NaN                NaN
+ ###### kin en               NaN                NaN
+   number of blocks            0
+         0      NaN      NaN      NaN      NaN      NaN      NaN
+ --- temp 0.728 
+ **************** MC_NPT ***************
+  ******** test random numbers ***********
+  i,ranf()            1  0.12718882392073105     
+  i,ranf()            2  0.75704766281403801     
+  i,ranf()            3  0.47566395776169390     
+  i,ranf()            4  0.12919149531290020     
+  i,ranf()            5  0.56378418122614760     
+ Initialisation on lattice: 
+       108 particles placed on a lattice
+ Initial temperature     : 0.725
+ Velocity centre of mass : 
+          x = 0.83E-16
+          y = 0.29E-16
+          z = -.21E-16
+  Number of particles                        :       108
+  Density                                    :     0.844
+  Box length                                 :     5.039
+
+  Initial Temperature                         :     0.725
+    velocity centre of mass x-dir            :     0.000
+    velocity centre of mass y-dir            :     0.000
+    velocity centre of mass z-dir            :    -0.000
+  Time step                                   :     0.001
+  Total simulation time                       :       0.50
+  Equilibration                               :       0.00
+  Number of timesteps between two samples     :          1
+  Number of timesteps between two samples g(r):         10
+ Simulations with TRUNCATED AND SHIFTED potential: 
+ Potential truncated at                      :     2.500
+ Energy shift                                : -0.016317
+
+
+ Total pot. energy in. conf.       :   -351.09710
+ Total kinetic energy in. conf.    :    117.38202
+ Total energy in. conf.            :   -116.33307
+ Total virial initial configuration:   4319.14894
+ ======>> Done    5.00000007E-02  out of   0.500000000      -233.56124027163108     
+ ======>> Done   0.100000001      out of   0.500000000      -233.56614776108631     
+ ======>> Done   0.150000006      out of   0.500000000      -233.56933155277193     
+ ======>> Done   0.200000003      out of   0.500000000      -233.56964440208390     
+ ======>> Done   0.250000000      out of   0.500000000      -233.57029249128755     
+ ======>> Done   0.300000012      out of   0.500000000      -233.57450652760457     
+ ======>> Done   0.349999994      out of   0.500000000      -233.57228234633274     
+ ======>> Done   0.400000006      out of   0.500000000      -233.57272494186478     
+ ======>> Done   0.449999988      out of   0.500000000      -233.57415308220538     
+ ======>> Done   0.500000000      out of   0.500000000      -233.57056883445685     
+ Energy and pressure calculated from g(r) 
+     Number of samples     :       50
+     Average temperature   :    1.304
+     Energy                :   -4.117
+     Pressure              :    6.858
+
+ Shear viscosity: 
+  xy component :        0.000
+  xz component :        0.000
+  yz component :        0.000
+  Average      :        0.000
+
+   6.93166447       0.00000000    
+   20.6628819       0.00000000    
+   17.0578499       0.00000000    
+ Total energy end of simulation    :   -233.21278
+ Total virial end of simulation    :   1596.03485
+  ***** Calculate block averages ************
+   number of averages            3
+ block data     1   0.668950  12.077577  -3.166155
+ block data     2   0.457262  12.971003  -2.848503
+ block data     3   0.558782  12.167592  -3.000839
+ block data     4   0.753736  10.802429  -3.293285
+ block data     5   0.898912   9.673625  -3.511009
+ block data     6   1.165247   7.922017  -3.910535
+ block data     7   1.432477   6.188818  -4.311404
+ block data     8   1.562258   5.248502  -4.506073
+ block data     9   1.608638   4.845416  -4.575642
+ block data    10   1.631843   4.638701  -4.610499
+ block data    11   1.585675   4.801063  -4.541204
+ block data    12   1.617232   4.585175  -4.588578
+ block data    13   1.553745   4.878790  -4.493333
+ block data    14   1.478296   5.268398  -4.380136
+ block data    15   1.506925   5.156448  -4.423117
+ block data    16   1.469086   5.424159  -4.366345
+ block data    17   1.423136   5.745111  -4.297406
+ block data    18   1.474664   5.514839  -4.374722
+ block data    19   1.541464   5.162076  -4.474919
+ block data    20   1.548569   5.137613  -4.485590
+ ###### tot en        1.29684496         0.08620188
+ ###### pot en        6.91046751         0.63288697
+ ###### kin en       -4.10796468         0.12930767
+   number of blocks          500
+         0   0.0173   0.0005   0.1267   0.0040   0.0259   0.0008
+         1   0.0244   0.0011   0.1794   0.0080   0.0366   0.0016
+         2   0.0346   0.0022   0.2542   0.0161   0.0519   0.0033
+         3   0.0495   0.0045   0.3633   0.0329   0.0742   0.0067
+         4   0.0704   0.0091   0.5174   0.0668   0.1057   0.0136
+         5   0.1034   0.0195   0.7615   0.1439   0.1552   0.0293
+         6   0.1582   0.0457   1.1709   0.3380   0.2374   0.0685
+         7   0.2814   0.1407   2.0640   1.0320   0.4220   0.2110

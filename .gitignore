@@ -5,13 +5,7 @@ BLOGS.md
 
 IMG_*
 
-clean_cov_mem.sh
-do_coverage.sh
-do_track_allocation.sh
-
-create_zip.sh
-
-broken
+fort.*
 
 .ipynb_checkpoints
 _compare
