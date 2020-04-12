@@ -1,10 +1,4 @@
 PROGRAM MD
-!________________________________________________________________________
-!
-!   Understanding Molecular Simulations: From Algorithms to Applications
-!   Case Study 4:  Static properties of the Lennard-Jones fluid
-!__________________________________________________________________________
-
   USE m_globals, ONLY: npmax, samp1, nsamp
 
   IMPLICIT NONE
@@ -15,7 +9,14 @@ PROGRAM MD
 
   REAL(8) :: fx(NPMax), fy(NPMax), fz(NPMax)
  
-  WRITE(*,*) '**************** MC_NPT ***************'
+  WRITE(*,*)
+  WRITE(*,*) 'Molecular Dynamics starting ...'
+  WRITE(*,*) '________________________________________________________________________'
+  WRITE(*,*) ''
+  WRITE(*,*) '   Understanding Molecular Simulations: From Algorithms to Applications'
+  WRITE(*,*) '   Case Study 4:  Static properties of the Lennard-Jones fluid'
+  WRITE(*,*) '_________________________________________________________________________'
+
 
   ! initialize system
   CALL INIT(delt, tmax, tequil, temprsq, scale)
@@ -45,18 +46,18 @@ PROGRAM MD
     en = enpot + enk
     step = step + 1
     
-    IF (time.LT.tequil) THEN
-      IF (scale) THEN
-        IF (MOD(step,20).EQ.0) CALL VELOCS(temprsq)
+    IF( time < tequil ) THEN
+      IF( scale ) THEN
+        IF( MOD(step,20) == 0) CALL VELOCS(temprsq)
       ENDIF
     ! if system equilbrated sample averages:
-    ELSEIF (MOD(step,NSAMP).EQ.0) THEN
+    ELSEIF (MOD(step,NSAMP) == 0) THEN
       IF (SAMP1) CALL SAMPLE(1, step, en, vir, enk, delt)
       ! IF (SAMP2) CALL SAMPLE2(1, delt)
     ENDIF
     
-    IF (MOD(step,nstep10).EQ.0) THEN
-      WRITE(6, '(1x,A,F18.10,A,F18.10,F18.10)') '======>> Done ', time, ' out of ', tmax, en
+    IF (MOD(step,nstep10) == 0) THEN
+      WRITE(*, '(1x,A,F18.10,A,F18.10,F18.10)') '======>> Done ', time, ' out of ', tmax, en
       ! write intermediate configuration to file
       CALL STORE(8)
     ENDIF

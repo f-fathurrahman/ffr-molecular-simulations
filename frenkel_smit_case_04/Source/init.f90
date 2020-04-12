@@ -1,4 +1,8 @@
-SUBROUTINE INIT(Delt, Tmax, Tequil, Temprqs, Scale)
+SUBROUTINE read_input()
+  USE m_globals
+END SUBROUTINE
+
+SUBROUTINE init(Delt, Tmax, Tequil, Temprqs, Scale)
 !
 ! reads input data and model parameters
 !
@@ -13,12 +17,16 @@ SUBROUTINE INIT(Delt, Tmax, Tequil, Temprqs, Scale)
   USE m_globals
 
   IMPLICIT NONE
+  ! Local
   INTEGER :: ibeg, i, iseed
   LOGICAL :: Scale
   REAL(8) :: rho, Delt, Tmax, rc, sumvx, sumvy, sumvz, sumv2, &
              temp, Tequil, Temprqs
  
-! ---read simulation data
+  WRITE(*,*)
+  WRITE(*,*) 'Reading input data from fort.15'
+
+  ! read simulation data
   READ(15, *)
   READ(15, *) ibeg, Delt, Tmax, Tequil, NSAMP
   READ(15, *)
@@ -30,7 +38,9 @@ SUBROUTINE INIT(Delt, Tmax, Tequil, Temprqs, Scale)
   READ(15, *)
   READ(15, *) SAMP1, SAMP2, TDIFMAX
  
-! ---initialise and test random number generator
+  WRITE(*,*) 'Finished reading input data from fort.15'
+
+  ! initialise and test random number generator
   CALL RANTEST(iseed)
  
   IF (NPART.GT.NPMax) THEN
@@ -39,15 +49,26 @@ SUBROUTINE INIT(Delt, Tmax, Tequil, Temprqs, Scale)
   END IF
 
   ! read/generate configuration
-  IF (ibeg.EQ.0) THEN
-  ! generate configuration form lattice
-    BOX = (NPART/rho)**(1.D00/3.D00)
-    HBOX = 0.5D00*BOX
-    WRITE(*,*) 'Calling lattice()'
+  IF( ibeg == 0 ) THEN
+
+    BOX = (Npart/rho)**(1.D0/3.D0)
+    HBOX = 0.5D0*BOX
+
+    WRITE(*,*)
+    WRITE(*,*) 'Generating initial configuration with lattice'
+    
+    WRITE(*,'(1x,A,I10)') 'Npart = ', npart
+    WRITE(*,'(1x,A,F18.10)') 'rho   = ', rho
+    WRITE(*,'(1x,A,F18.10)') 'BOX   = ', BOX
+
     CALL LATTICE()
     CALL SETVEL(temp, iseed, sumvx, sumvy, sumvz)
+    
+    STOP
+
   ELSE
-    WRITE(6, *) ' read conf from disk '
+
+    WRITE(6, *) 'Read configuration from disk file fort.11'
     READ(11, *) BOX, HBOX
     READ(11, *) NPART
     rho = NPART/BOX**3

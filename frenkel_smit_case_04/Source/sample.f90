@@ -203,18 +203,18 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
     
     ! velocity auto-correlation function and
     ! mean square displacement
-         t0 = 0
-         tvacf = 0
-         dtime = NSAMP*Delt*NTVACF
-         DO i = 1, TMAx
-            r2t(i) = 0
-            nvacf(i) = 0
-            vacf(i) = 0
-            nstress(i) = 0
-            sxyt(i) = 0
-            sxzt(i) = 0
-            syzt(i) = 0
-         END DO
+    t0 = 0
+    tvacf = 0
+    dtime = NSAMP*Delt*NTVACF
+    DO i = 1, TMAx
+      r2t(i) = 0
+      nvacf(i) = 0
+      vacf(i) = 0
+      nstress(i) = 0
+      sxyt(i) = 0
+      sxzt(i) = 0
+      syzt(i) = 0
+    END DO
  
   ELSEIF( Switch == 2 ) THEN
     ! ---write results to file
@@ -232,15 +232,15 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
         g(i) = 2*g(i)/(ngr*dr*rho*NPART)
         WRITE (IOUT1, *) r, g(i)
         IF (r*r < RC2) THEN
-           r6i = 1/r**6
-           e = e + g(i)*2*PI*rho*r**2*(4*(r6i*r6i-r6i)-ECUT)*delg
-           p = p + g(i)*2*PI*rho**2*r**2*48*(r6i*r6i-0.5D0*r6i)*delg/3
-           g(i) = g(i)*2*PI*rho*r**2*(4*(r6i*r6i-r6i)-ECUT)
+          r6i = 1/r**6
+          e = e + g(i)*2*PI*rho*r**2*(4*(r6i*r6i-r6i)-ECUT)*delg
+          p = p + g(i)*2*PI*rho**2*r**2*48*(r6i*r6i-0.5D0*r6i)*delg/3
+          g(i) = g(i)*2*PI*rho*r**2*(4*(r6i*r6i-r6i)-ECUT)
         ELSE
-           g(i) = 0
+          g(i) = 0
         END IF
       END DO
-      WRITE (6, 99003) ngr, tempav, e, p + rho*tempav
+      WRITE(*, 99003) ngr, tempav, e, p + rho*tempav
     END IF
 
     ! velocity auto-correlation function
@@ -251,8 +251,8 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
       DO i = 1, TMAx
         IF( nvacf(i)*NPART.NE.0 ) THEN
           tauc = tauc + (vacf(i)/(NPART*nvacf(i)))**2*dtime
-        END IF
-      END DO
+        ENDIF
+      ENDDO
       
       ! normalisation
       IF( nvacf(1)*NPART /= 0) tauc = tauc/(vacf(1)/(NPART*nvacf(1))**2)
@@ -292,33 +292,32 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
       WRITE(6, 99001) 2*dtime, nvacf(3), thmax, ihbmax
     ENDIF
 
-!        ---stress tensor
-         IF (tstress.NE.0) THEN
-            ethaxy = 0
-            ethaxz = 0
-            ethayz = 0
-            vol = BOX**3
-            DO i = 1, TMAx
-               dstime = dstresstime*(i-1)
-               IF (nstress(i).NE.0) THEN
-                  fact = 1/(tempav*vol*nstress(i))
-                  sxyt(i) = sxyt(i)*fact
-                  sxzt(i) = sxzt(i)*fact
-                  syzt(i) = syzt(i)*fact
-                  ethaxy = ethaxy + sxyt(i)*dstresstime
-                  ethaxz = ethaxz + sxzt(i)*dstresstime
-                  ethayz = ethayz + syzt(i)*dstresstime
-                  WRITE (IOUT3, '(10(2x,f8.3))') SNGL(dstime), &
-                         SNGL(sxyt(i)), SNGL(sxzt(i)), SNGL(syzt(i)), &
-                         SNGL(sxyt(i)+sxzt(i)+syzt(i))/3, &
-                         SNGL((ethaxy+ethaxz+ethayz)/3)
-               END IF
-            END DO
-            WRITE (6, 99005) ethaxy, ethaxz, ethayz, (ethaxy+ethaxz+ethayz)/3
-            WRITE(*,*) SNGL(sxy00/(tempav*vol*ngr)), SNGL(sxyt(1))
-            WRITE(*,*) SNGL(sxz00/(tempav*vol*ngr)), SNGL(sxzt(1))
-            WRITE(*,*) SNGL(syz00/(tempav*vol*ngr)), SNGL(syzt(1))
-         END IF
+    ! ---stress tensor
+    IF (tstress.NE.0) THEN
+      ethaxy = 0
+      ethaxz = 0
+      ethayz = 0
+      vol = BOX**3
+      DO i = 1, TMAx
+        dstime = dstresstime*(i-1)
+        IF (nstress(i).NE.0) THEN
+          fact = 1/(tempav*vol*nstress(i))
+          sxyt(i) = sxyt(i)*fact
+          sxzt(i) = sxzt(i)*fact
+          syzt(i) = syzt(i)*fact
+          ethaxy = ethaxy + sxyt(i)*dstresstime
+          ethaxz = ethaxz + sxzt(i)*dstresstime
+          ethayz = ethayz + syzt(i)*dstresstime
+          WRITE(IOUT3, '(10(2x,f8.3))') dstime, sxyt(i), sxzt(i), syzt(i), &
+                                        (sxyt(i)+sxzt(i)+syzt(i))/3, &
+                                        (ethaxy+ethaxz+ethayz)/3
+        ENDIF
+      ENDDO
+      WRITE(*, 99005) ethaxy, ethaxz, ethayz, (ethaxy+ethaxz+ethayz)/3
+      WRITE(*,*) sxy00/(tempav*vol*ngr), sxyt(1)
+      WRITE(*,*) sxz00/(tempav*vol*ngr), sxzt(1)
+      WRITE(*,*) syz00/(tempav*vol*ngr), syzt(1)
+    END IF
   
   ELSE
      

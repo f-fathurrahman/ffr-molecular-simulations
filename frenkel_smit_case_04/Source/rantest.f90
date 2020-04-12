@@ -5,9 +5,13 @@ SUBROUTINE RANTEST(Iseed)
   REAL(8) :: RANF
  
   CALL RANSET(Iseed)
-  WRITE(*,*) ' ******** test random numbers ***********'
+
+  WRITE(*,*)
+  WRITE(*,*) 'Initializing and testing random number'
+  WRITE(*,*)
+
   DO i = 1, 5
-    WRITE(*,*) 'i, ranf() ', i, RANF(Iseed)
+    WRITE(*,'(1x,A,I2,A,F18.10)') 'i = ', i, ' ranf() = ', RANF(Iseed)
   END DO
   RETURN
 END SUBROUTINE
