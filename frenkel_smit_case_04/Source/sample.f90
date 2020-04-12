@@ -53,7 +53,7 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
       enp = 0.D0
       press = 0.D0
     END IF
-    
+
     WRITE (66, *) Is, SNGL(temp), SNGL(press), SNGL(enp)
     
     IF( MOD(Is,IGR) == 0) THEN
@@ -220,7 +220,7 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
     ! ---write results to file
     
     ! radial distribution function
-    IF (ngr.NE.0) THEN
+    IF (ngr /= 0) THEN
       WRITE(*,*) 'Radial distribution function will be written out to ', IOUT1
       rho = NPART/BOX**3
       tempav = tempav/ngr
@@ -231,7 +231,7 @@ SUBROUTINE SAMPLE(Switch, Is, En, Vir, Enk, Delt)
         dr = 4*PI*delg**3*((i+1)**3-i**3)/3
         g(i) = 2*g(i)/(ngr*dr*rho*NPART)
         WRITE (IOUT1, *) r, g(i)
-        IF (r*r.LT.RC2) THEN
+        IF (r*r < RC2) THEN
            r6i = 1/r**6
            e = e + g(i)*2*PI*rho*r**2*(4*(r6i*r6i-r6i)-ECUT)*delg
            p = p + g(i)*2*PI*rho**2*r**2*48*(r6i*r6i-0.5D0*r6i)*delg/3
