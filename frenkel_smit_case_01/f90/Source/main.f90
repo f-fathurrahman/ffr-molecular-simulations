@@ -25,59 +25,69 @@ PROGRAM MC_NVT
   nmoves = ndispl
   
   ! total energy of the system
-!  CALL TOTERG(en, vir)
-!  WRITE(*, 99001) en, vir
+  CALL TOTERG(en, vir)
+  WRITE(*, 99001) en, vir
   
   ! start MC-cycle
-!  DO ii = 1, 2
-!    ! ii=1 equilibration
-!    ! ii=2 production
-!         IF (ii.EQ.1) THEN
-!            ncycl = equil
-!            IF (ncycl.NE.0) WRITE (6, *) ' Start equilibration '
-!         ELSE
-!            IF (ncycl.NE.0) WRITE (6, *) ' Start production '
-!            ncycl = prod
-!         END IF
-!         attempt = 0
-!         nacc = 0
-!    c        ---intialize the subroutine that adjust the maximum displacement
-!         CALL ADJUST(attempt, nacc, dr)
-!         DO icycl = 1, ncycl
-!            DO imove = 1, nmoves
-!c              ---attempt to displace a particle
-!               CALL MCMOVE(en, vir, attempt, nacc, dr, iseed)
-!            END DO
-!            IF (ii.EQ.2) THEN
-!c              ---sample averages
-!               IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir)
-!            END IF
-!            IF (MOD(icycl,ncycl/5).EQ.0) THEN
-!               WRITE (6, *) '======>> Done ', icycl, ' out of ', ncycl
-!c              ---write intermediate configuration to file
-!               CALL STORE(8, dr)
-!c              ---adjust maximum displacements
-!               CALL ADJUST(attempt, nacc, dr)
-!            END IF
-!         END DO
-!         IF (ncycl.NE.0) THEN
-!            IF (attempt.NE.0) WRITE (6, 99003) attempt, nacc, 
-!     &                               100.*FLOAT(nacc)/FLOAT(attempt)
-!c           ---test total energy
-!            CALL TOTERG(ent, virt)
-!            IF (ABS(ent-en).GT.1.D-6) THEN
-!               WRITE (6, *) 
-!     &                    ' ######### PROBLEMS ENERGY ################ '
-!            END IF
-!            IF (ABS(virt-vir).GT.1.D-6) THEN
-!               WRITE (6, *) 
-!     &                    ' ######### PROBLEMS VIRIAL ################ '
-!            END IF
-!            WRITE (6, 99002) ent, en, ent - en, virt, vir, virt - vir
-!         END IF
-!      END DO
-!      CALL STORE(21, dr)
-      STOP
+  DO ii = 1, 2
+    ! ii=1 equilibration
+    ! ii=2 production
+    IF( ii == 1 ) THEN
+      ncycl = equil
+      IF( ncycl /= 0 ) WRITE(*,*) ' Start equilibration '
+    ELSE
+      IF( ncycl /= 0 ) WRITE(*,*) ' Start production '
+      ncycl = prod
+    ENDIF
+    
+    attempt = 0
+    nacc = 0
+    
+    ! intialize the subroutine that adjust the maximum displacement
+    CALL ADJUST(attempt, nacc, dr)
+    
+    DO icycl = 1, ncycl
+      !
+      DO imove = 1, nmoves
+        ! attempt to displace a particle
+        CALL MCMOVE(en, vir, attempt, nacc, dr, iseed)
+      ENDDO
+      
+      IF( ii == 2 ) THEN
+        ! sample averages
+        IF( MOD(icycl,nsamp) == 0 ) CALL SAMPLE(icycl, en, vir)
+      ENDIF
+      
+      IF( MOD(icycl,ncycl/5) == 0 ) THEN
+        WRITE(*, *) '======>> Done ', icycl, ' out of ', ncycl
+        ! write intermediate configuration to file
+        CALL STORE(8, dr)
+        ! adjust maximum displacements
+        CALL ADJUST(attempt, nacc, dr)
+      ENDIF
+    ENDDO
+    
+    IF( ncycl /= 0 ) THEN
+      !
+      IF( attempt /= 0 ) WRITE(*, 99003) attempt, nacc, 100.d0*dble(nacc)/dble(attempt)
+      ! test total energy
+      CALL TOTERG(ent, virt)
+      !
+      IF( ABS(ent-en) > 1.D-6 ) THEN
+        WRITE(6, *) ' ######### PROBLEMS ENERGY ################ '
+      ENDIF
+      !
+      IF( ABS(virt-vir) > 1.D-6) THEN
+        WRITE(*, *) ' ######### PROBLEMS VIRIAL ################ '
+      ENDIF
+      !
+      WRITE(*, 99002) ent, en, ent - en, virt, vir, virt - vir
+    ENDIF
+  END DO
+  
+  CALL STORE(21, dr)
+  
+  STOP
  
 99001 FORMAT (' Total energy initial configuration: ', f12.5, /, &
               ' Total virial initial configuration: ', f12.5)
