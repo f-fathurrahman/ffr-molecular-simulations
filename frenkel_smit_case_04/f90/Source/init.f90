@@ -63,8 +63,6 @@ SUBROUTINE init(Delt, Tmax, Tequil, Temprqs, Scale)
 
     CALL LATTICE()
     CALL SETVEL(temp, iseed, sumvx, sumvy, sumvz)
-    
-    STOP
 
   ELSE
 

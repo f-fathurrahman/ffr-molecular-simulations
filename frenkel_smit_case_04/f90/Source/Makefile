@@ -1,106 +1,41 @@
-COMPFLAGS     =  -O # -check_bounds -trapeuv # -g 
+include make.inc
 
-CFLAGS	      = $(COMPFLAGS)
-PFLAGS	      = $(COMPFLAGS)
-FFLAGS	      = $(COMPFLAGS)
-CCFLAGS       = $(COMPFLAGS)
-CXXFLAGS      = $(COMPFLAGS)
+SRC = \
+m_globals.f90 ranf.f90 rantest.f90 \
+lattice.f90 init.f90 setvel.f90 velocs.f90 \
+eneri.f90 toterg.f90 force.f90 \
+sample.f90 store.f90 solve.f90
 
-DEST	      = .
 
-# Uncomment this if you want system header files to be expanded
+OBJ = $(SRC:.f90=.o) $(SRC:.f=.o)
+
 #
-# SYSHDRS       =
+# Suffix rule for Fortran 90
+#
+%.mod :
+	@if [! -f $@ ]; then \
+		rm $(*F).o; \
+		fi
+	$(MAKE) $<
 
-EXTHDRS	      =
+%.o : %.f90
+	$(F90) $(F90_OPTS) -c -o $(*F).o $<
 
-HDRS	      =
- 
-INSTALL	      = install
+#
+# Fortran 77 sources
+# supress warning
+.SUFFIXES: .o .f
+.f.o:
+	$(F77) $(F77_OPTS) -c $<
 
-LD	      = gfortran
+# Targets
+lib: $(OBJ)
+	ar rcs libmain.a *.o
 
-LDFLAGS	      = $(COMPFLAGS) # -l nag
+main: $(OBJ) lib
+	$(F90) $(F90_OPTS) main.f90 libmain.a -o main.x
 
-LIBS	      = 
+clean:
+	rm -rf *.o *.mod libmain.a *.x
 
-LINTLIBS      = 
 
-LINTFLAGS     = -u $(CFLAGS)
-
-MAKEFILE      = Makefile
-
-OBJS	      = eneri.o \
-		force.o \
-		init.o \
-		lattice.o \
-		md.o \
-		ranf.o \
-		rantest.o \
-		sample.o \
-		setvel.o \
-		solve.o \
-		store.o \
-		toterg.o \
-		velocs.o
-
-PRINT	      = pr
-
-PRINTFLAGS    =
-
-LP	      = lp
-
-LPFLAGS       = 
-
-PROGRAM       = MD
-
-SHELL	      = /bin/sh
-
-SRCS	      = eneri.f90 \
-		force.f90 \
-		init.f90 \
-		lattice.f90 \
-		md.f90 \
-		ranf.f \
-		rantest.f \
-		sample.f90 \
-		setvel.f90 \
-		solve.f90 \
-		store.f90 \
-		toterg.f90 \
-		velocs.f
-# sample2.f90 \
-
-all:		$(PROGRAM)
-
-$(PROGRAM):     $(OBJS) $(LIBS) $(MAKEFILE)
-		@echo "Linking $(PROGRAM) ..."
-		@$(LD) $(LDFLAGS) $(OBJS) $(LIBS) -o $(PROGRAM)
-		@echo "done"
-
-clean:;		@rm -f $(OBJS) core
-
-clobber:;	@rm -f $(OBJS) $(PROGRAM) core tags
-
-depend:;	@mkmf -f $(MAKEFILE) ROOT=$(ROOT)
-
-echo:;		@echo $(HDRS) $(SRCS)
-
--1:;		@ctags -wx $(HDRS) $(SRCS)
-
-install:	$(PROGRAM)
-		@echo Installing $(PROGRAM) in $(DEST)
-		@-strip $(PROGRAM)
-		@if [ $(DEST) != . ]; then \
-		(rm -f $(DEST)/$(PROGRAM); $(INSTALL) -f $(DEST) $(PROGRAM)); fi
-
-lint:		$(LINTLIBS) $(SRCS) $(HDRS) $(EXTHDRS)
-		lint $(LINTFLAGS) $(LINTLIBS) $(SRCS)
-
-print:;		@$(PRINT) $(PRINTFLAGS) $(HDRS) $(SRCS) | $(LP) $(LPFLAGS)
-
-tags:           $(HDRS) $(SRCS); @ctags $(HDRS) $(SRCS)
-
-update:		$(DEST)/$(PROGRAM)
-
-touch:;		@touch $(SRCS) $(HDRS)
