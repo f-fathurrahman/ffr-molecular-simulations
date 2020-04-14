@@ -1,3 +1,0 @@
-MODULE m_globals
-
-END MODULE
