@@ -10,7 +10,7 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
 !    Iseed      : seed random number generator
 !    Dr         : maximum displacement
 !    Ndispl     : number of attemps to displace a particle per MC cycle
-!    NPART      : total numbero fo particles
+!    NPART      : total number of particles
 !    TEMP       : temperature
 !    rho        : density
 !

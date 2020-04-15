@@ -4,11 +4,8 @@ PROGRAM MC_NVT
 !   Understanding Molecular Simulations: From Algorithms to Applications
 !
 !                 Daan Frenkel  and  Berend Smit
-!!__________________________________________________________________________
-!
 !
 !   Case Study 1: Equation of state of the Lennard-Jones fluid
-!
 !__________________________________________________________________________
  
   IMPLICIT NONE
@@ -26,7 +23,9 @@ PROGRAM MC_NVT
   
   ! total energy of the system
   CALL TOTERG(en, vir)
-  WRITE(*, 99001) en, vir
+
+  WRITE(*,'(1x,A,F18.10)') 'Total energy of initial configuration:', en
+  WRITE(*,'(1x,A,F18.10)') 'Total virial of initial configuration:', vir
   
   ! start MC-cycle
   DO ii = 1, 2
@@ -59,7 +58,7 @@ PROGRAM MC_NVT
       ENDIF
       
       IF( MOD(icycl,ncycl/5) == 0 ) THEN
-        WRITE(*, *) '======>> Done ', icycl, ' out of ', ncycl
+        WRITE(*,'(1x,A,I8,A,I8)') 'Done ', icycl, ' cycles out of ', ncycl
         ! write intermediate configuration to file
         CALL STORE(8, dr)
         ! adjust maximum displacements
@@ -74,30 +73,27 @@ PROGRAM MC_NVT
       CALL TOTERG(ent, virt)
       !
       IF( ABS(ent-en) > 1.D-6 ) THEN
-        WRITE(6, *) ' ######### PROBLEMS ENERGY ################ '
+        WRITE(*,*) 'PROBLEMS ENERGY'
       ENDIF
       !
       IF( ABS(virt-vir) > 1.D-6) THEN
-        WRITE(*, *) ' ######### PROBLEMS VIRIAL ################ '
+        WRITE(*,*) 'PROBLEMS VIRIAL'
       ENDIF
       !
-      WRITE(*, 99002) ent, en, ent - en, virt, vir, virt - vir
+      WRITE(*,*)
+      WRITE(*,'(1x,A,F18.10)') 'Total energy at the end of simulation : ', ent
+      WRITE(*,'(1x,A,F18.10)') 'Running energy                        : ', en
+      WRITE(*,'(1x,A,E18.10)') 'Difference                            : ', ent - en
+      WRITE(*,*)
+      WRITE(*,'(1x,A,F18.10)') 'Total virial at the end of simulation : ', virt
+      WRITE(*,'(1x,A,F18.10)') 'Running virial                        : ', vir
+      WRITE(*,'(1x,A,E18.10)') 'Difference                            : ', virt - vir
     ENDIF
   END DO
   
   CALL STORE(21, dr)
   
   STOP
- 
-99001 FORMAT (' Total energy initial configuration: ', f12.5, /, &
-              ' Total virial initial configuration: ', f12.5)
-
-99002 FORMAT (' Total energy end of simulation    : ', f12.5, /, &
-              '       running energy              : ', f12.5, /, &
-              '       difference                  :  ', e12.5, /, &
-              ' Total virial end of simulation    : ', f12.5, /, &
-              '       running virial              : ', f12.5, /, &
-              '       difference                  :  ', e12.5)
 
 99003 FORMAT (' Number of att. to displ. a part.  : ', i10, /, &
               ' success: ', i10, '(= ', f5.2, '%)')

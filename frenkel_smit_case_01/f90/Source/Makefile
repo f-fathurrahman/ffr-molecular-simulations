@@ -32,7 +32,7 @@ OBJ = $(SRC:.f90=.o) $(SRC:.f=.o)
 lib: $(OBJ)
 	ar rcs libmain.a *.o
 
-main: $(OBJ)
+main: $(OBJ) lib
 	$(F90) $(F90_OPTS) main.f90 libmain.a -o main.x
 
 clean:
