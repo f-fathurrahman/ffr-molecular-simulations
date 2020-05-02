@@ -31,11 +31,11 @@ function compute_forces!( atoms::Atoms, rCut::Float64, region::Vector{Float64} )
             #
             # 1st particle, unit mass
             #
-            #mol[j1].ra = mol[j1].ra + fcVal*dr
             atoms.ra[1,j1] = atoms.ra[1,j1] + fcVal*dr[1]
             atoms.ra[2,j1] = atoms.ra[2,j1] + fcVal*dr[2]
-            # 2nd particle, unit masss
-            #mol[j2].ra = mol[j2].ra - fcVal*dr
+            #
+            # 2nd particle, unit mass
+            #
             atoms.ra[1,j2] = atoms.ra[1,j2] - fcVal*dr[1]
             atoms.ra[2,j2] = atoms.ra[2,j2] - fcVal*dr[2]
             #
