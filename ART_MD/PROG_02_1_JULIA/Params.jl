@@ -19,6 +19,7 @@ function init_Params( input_vars::InputVars )
 
     velMag = sqrt( NDIM*(1.0 - 1.0/nMol) * temperature )
 
+    # XXX Move to show
     @printf("Parameters in LJ unit:\n")
     @printf("rCut = %f\n", rCut)
     @printf("region = [%f,%f]\n", region[1], region[2])

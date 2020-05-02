@@ -35,7 +35,7 @@ function main()
     
     Random.seed!(1234)
 
-    input_vars = init_InputVars()
+    input_vars = InputVars(step_limit=100)
     @show input_vars
     
     params = init_Params(input_vars)
@@ -71,18 +71,5 @@ function main()
     println("Pass here ...")
 end
 
-
-#=
-
-function main()
-# Run the MD steps
-  while moreCycles
-      SingleStep(mol)
-      if stepCount > stepLimit
-          moreCycles = false
-      end
-  end
-end
-=#
-
-main()
+@time main()
+@time main()

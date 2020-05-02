@@ -1,3 +1,4 @@
+# XXX as dictionary?
 mutable struct InputVars
     Δt::Float64
     density::Float64
@@ -8,13 +9,15 @@ mutable struct InputVars
     temperature::Int64
 end
 
-function init_InputVars()
-    Δt = 0.005
-    density = 0.8
-    initUcell = [20,20]
-    step_avg = 100
-    step_equil = 0
-    step_limit = 10000
+# Constructor
+function InputVars( ;
+    Δt = 0.005,
+    density = 0.8,
+    initUcell = [20,20],
+    step_avg = 100,
+    step_equil = 0,
+    step_limit = 10000,
     temperature = 1.0
+)
     return InputVars(Δt, density, initUcell, step_avg, step_equil, step_limit, temperature)
 end
