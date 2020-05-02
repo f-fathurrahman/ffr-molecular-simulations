@@ -17,8 +17,10 @@ typedef struct {
 
 #define MAT(a, n, i, j)  (a)[(i) + n * (j)]
 
+// Allocate 1d array
 #define AllocMem(a, n, t)  a = (t *) malloc ((n) * sizeof (t))
 
+// ALlocate 2d array
 #define AllocMem2(a, n1, n2, t)                             \
    AllocMem (a, n1, t *);                                   \
    AllocMem (a[0], (n1) * (n2), t);                         \
@@ -87,6 +89,10 @@ typedef struct {
 
 #endif
 
+//
+// Macros for 3d systems
+//
+
 #if NDIM == 3
 
 #define VWrapAll(v)                                         \
@@ -112,6 +118,10 @@ typedef struct {
 
 #endif
 
+
+//
+// A struct describing a property (from measurement):
+//
 typedef struct {
   real val, sum, sum2;
 } Prop;

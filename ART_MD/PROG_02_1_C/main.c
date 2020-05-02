@@ -18,13 +18,13 @@ real virSum;
 Prop pressure;
 
 NameList nameList[] = {
-  NameR (deltaT),
-  NameR (density),
-  NameI (initUcell),
-  NameI (stepAvg),
-  NameI (stepEquil),
-  NameI (stepLimit),
-  NameR (temperature),
+  NameR(deltaT),
+  NameR(density),
+  NameI(initUcell),
+  NameI(stepAvg),
+  NameI(stepEquil),
+  NameI(stepLimit),
+  NameR(temperature),
 };
 
 #include "SetupJob.c"
@@ -46,13 +46,18 @@ NameList nameList[] = {
 int main (int argc, char **argv)
 {
   GetNameList(argc, argv);
+
   PrintNameList(stdout);
+  
   SetParams();
+  
   SetupJob();
+  
+  // MD steps
   moreCycles = 1;
-  while (moreCycles) {
-    SingleStep ();
-    if (stepCount >= stepLimit) moreCycles = 0;
+  while( moreCycles ) {
+    SingleStep();
+    if( stepCount >= stepLimit ) moreCycles = 0;
   }
 }
 
