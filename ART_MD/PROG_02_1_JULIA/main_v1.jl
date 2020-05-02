@@ -25,19 +25,17 @@ function main()
     
     Random.seed!(1234)
 
-    input_vars = InputVars(step_limit=1000, step_avg=100)
+    input_vars = InputVars(step_limit=1000)
     #@show input_vars
     
     params = Params(input_vars)
-    #println(params)
+    println(params)
 
-    atoms = Atoms(params.nMol, 2)
-
-    init_coords!( atoms, input_vars, params )
-    init_velocities!( atoms, input_vars, params )
-    #init_accelarations!( mol )
+    mol = init_coords( input_vars, params )
+    init_velocities!( mol, input_vars, params )
+    init_accelarations!( mol )
     
-    print_mol_xyz( atoms, "TRAJ_0.xyz", "w", LJ2ANG )
+    #print_mol_xyz( mol, "TRAJ_0.xyz", "w", LJ2ANG )
 
     tot_ene = Property(0.0, 0.0, 0.0)
     kin_ene = Property(0.0, 0.0, 0.0)
@@ -52,7 +50,7 @@ function main()
 
     while more_cycles
         step_count, time_now =
-        single_step!( atoms, input_vars, params,
+        single_step!( mol, input_vars, params,
                       tot_ene, kin_ene, pressure,
                       step_count, time_now )
         if step_count > step_limit
@@ -63,4 +61,4 @@ function main()
 end
 
 @time main()
-@time main()
+#@time main()

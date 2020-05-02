@@ -16,6 +16,16 @@ function vwrap_all!( v::Vector{Float64}, region::Vector{Float64} )
 end
 
 
+function apply_boundary_cond!( atoms::Atoms, region::Vector{Float64})
+    Natoms = atoms.Natoms
+    for ia = 1:Natoms
+        atoms.r[1,ia] = vwrap( atoms.r[1,ia], region[1] )
+        atoms.r[2,ia] = vwrap( atoms.r[2,ia], region[2] )
+    end
+    return
+end
+
+
 function apply_boundary_cond!( mol::Vector{Mol}, region::Vector{Float64})
     nMol = length(mol)
     for n = 1:nMol

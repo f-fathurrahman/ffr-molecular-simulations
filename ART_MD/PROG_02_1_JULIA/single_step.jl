@@ -1,5 +1,5 @@
 function single_step!(
-    mol::Vector{Mol}, 
+    mol, 
     input_vars, params,
     totEnergy, kinEnergy, pressure,
     step_count::Int64,
@@ -31,7 +31,7 @@ function single_step!(
         do_props_accum!( 2, step_avg, totEnergy, kinEnergy, pressure )
 
         @printf("%5d %8.4f %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f\n",
-            step_count, time_now, (vSum[1] + vSum[1])/nMol,
+            step_count, time_now, (vSum[1] + vSum[2])/nMol,
             totEnergy.s, totEnergy.s2, kinEnergy.s, kinEnergy.s2,
             pressure.s, pressure.s2 )
 
