@@ -4,17 +4,7 @@ using Random
 const NDIM = 2
 const LJ2ANG = 3.4  # LJ unit to Angstrom
 
-mutable struct Mol
-    r::Vector{Float64}
-    rv::Vector{Float64}
-    ra::Vector{Float64}
-end
-
-mutable struct Property
-    val::Float64
-    s::Float64
-    s2::Float64
-end
+include("datatypes.jl")
 
 include("InputVars.jl")
 include("Params.jl")
@@ -38,8 +28,8 @@ function main()
     input_vars = InputVars(step_limit=1000)
     #@show input_vars
     
-    params = init_Params(input_vars)
-    #@show params
+    params = Params(input_vars)
+    println(params)
 
     mol = init_coords( input_vars, params )
     init_velocities!( mol, input_vars, params )
@@ -47,11 +37,11 @@ function main()
     
     #print_mol_xyz( mol, "TRAJ_0.xyz", "w", LJ2ANG )
 
-    totEnergy = Property(0.0, 0.0, 0.0)
-    kinEnergy = Property(0.0, 0.0, 0.0)
+    tot_ene = Property(0.0, 0.0, 0.0)
+    kin_ene = Property(0.0, 0.0, 0.0)
     pressure  = Property(0.0, 0.0, 0.0)
 
-    do_props_accum!( 0, input_vars.step_avg, totEnergy, kinEnergy, pressure )
+    do_props_accum!( 0, input_vars.step_avg, tot_ene, kin_ene, pressure )
 
     step_limit = input_vars.step_limit
     more_cycles = true
@@ -61,7 +51,7 @@ function main()
     while more_cycles
         step_count, time_now =
         single_step!( mol, input_vars, params,
-                      totEnergy, kinEnergy, pressure,
+                      tot_ene, kin_ene, pressure,
                       step_count, time_now )
         if step_count > step_limit
             more_cycles = false
@@ -71,4 +61,4 @@ function main()
 end
 
 @time main()
-@time main()
+#@time main()

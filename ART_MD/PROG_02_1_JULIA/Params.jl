@@ -5,7 +5,7 @@ mutable struct Params
     velMag::Float64
 end
 
-function init_Params( input_vars::InputVars )
+function Params( input_vars::InputVars )
     #
     density = input_vars.density
     initUcell = input_vars.initUcell
@@ -19,11 +19,17 @@ function init_Params( input_vars::InputVars )
 
     velMag = sqrt( NDIM*(1.0 - 1.0/nMol) * temperature )
 
-    # XXX Move to show
-    #@printf("Parameters in LJ unit:\n")
-    #@printf("rCut = %f\n", rCut)
-    #@printf("region = [%f,%f]\n", region[1], region[2])
-    #@printf("velMag = %f\n", velMag)
-
     return Params(rCut, region, nMol, velMag)
+end
+
+
+import Base: show
+function show( io::IO, p::Params )
+    @printf("\n")
+    @printf("Parameters in LJ unit:\n")
+    @printf("\n")
+    @printf("nMol = %d\n", p.nMol)
+    @printf("rCut = %18.10f\n", p.rCut)
+    @printf("region = [%18.10f,%18.10f]\n", p.region[1], p.region[2])
+    @printf("velMag = %18.10f\n", p.velMag)
 end
