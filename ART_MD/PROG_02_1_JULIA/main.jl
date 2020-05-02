@@ -35,17 +35,17 @@ function main()
     
     Random.seed!(1234)
 
-    input_vars = InputVars(step_limit=100)
-    @show input_vars
+    input_vars = InputVars(step_limit=1000)
+    #@show input_vars
     
     params = init_Params(input_vars)
-    @show params
+    #@show params
 
     mol = init_coords( input_vars, params )
     init_velocities!( mol, input_vars, params )
     init_accelarations!( mol )
     
-    print_mol_xyz( mol, "TRAJ_0.xyz", "w", LJ2ANG )
+    #print_mol_xyz( mol, "TRAJ_0.xyz", "w", LJ2ANG )
 
     totEnergy = Property(0.0, 0.0, 0.0)
     kinEnergy = Property(0.0, 0.0, 0.0)
@@ -68,7 +68,6 @@ function main()
         end
     end
 
-    println("Pass here ...")
 end
 
 @time main()
