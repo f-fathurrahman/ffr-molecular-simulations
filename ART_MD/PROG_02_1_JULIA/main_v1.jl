@@ -31,6 +31,7 @@ function main()
     params = Params(input_vars)
     println(params)
 
+    # This is using vector of structs
     mol = init_coords( input_vars, params )
     init_velocities!( mol, input_vars, params )
     init_accelarations!( mol )

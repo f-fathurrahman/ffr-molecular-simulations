@@ -31,6 +31,7 @@ function main()
     params = Params(input_vars)
     #println(params)
 
+    # This is using struct of vectors
     atoms = Atoms(params.nMol, 2)
 
     init_coords!( atoms, input_vars, params )
