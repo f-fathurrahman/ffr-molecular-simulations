@@ -25,7 +25,7 @@ function main()
     
     Random.seed!(1234)
 
-    input_vars = InputVars(step_limit=1000, step_avg=100)
+    input_vars = InputVars(step_limit=10000, step_avg=100)
     #@show input_vars
     
     params = Params(input_vars)
