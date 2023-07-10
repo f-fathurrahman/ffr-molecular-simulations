@@ -9,7 +9,7 @@ function vwrap( v::Float64, Lregion::Float64 )
     return vout
 end
 
-function vwrap_all!( v::Vector{Float64}, region::Vector{Float64} )
+function vwrap_all!( v::AbstractVector, region::AbstractVector )
     v[1] = vwrap( v[1], region[1] )
     v[2] = vwrap( v[2], region[2] )
     return

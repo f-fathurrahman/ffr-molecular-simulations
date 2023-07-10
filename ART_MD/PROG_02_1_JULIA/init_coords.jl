@@ -35,7 +35,7 @@ function init_coords(input_vars, params)
     
     mol = Vector{Mol}(undef,nMol)
     #
-    c  = [0.0, 0.0]
+    c  = MVector(0.0, 0.0)
     #
     n = 1
     for ny in 0:initUcell[2] - 1

@@ -1,7 +1,7 @@
 mutable struct Mol
-    r::Vector{Float64}
-    rv::Vector{Float64}
-    ra::Vector{Float64}
+    r::MVector{2,Float64}
+    rv::MVector{2,Float64}
+    ra::MVector{2,Float64}
 end
 
 mutable struct Property

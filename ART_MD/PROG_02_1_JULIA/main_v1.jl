@@ -1,5 +1,9 @@
+Pkg.activate("../")
+
 using Printf
 using Random
+
+using StaticArrays: MVector
 
 const NDIM = 2
 const LJ2ANG = 3.4  # LJ unit to Angstrom
@@ -25,7 +29,7 @@ function main()
     
     Random.seed!(1234)
 
-    input_vars = InputVars(step_limit=1000)
+    input_vars = InputVars(step_limit=10_000, step_avg=100)
     #@show input_vars
     
     params = Params(input_vars)
