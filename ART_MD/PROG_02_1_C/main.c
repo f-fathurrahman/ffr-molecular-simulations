@@ -1,5 +1,7 @@
 /* [[pr_02_1 - all pairs, two dimensions]] */
 
+#include <time.h>
+
 #define NDIM  2
 
 #include "in_mddefs.h"
@@ -45,6 +47,8 @@ NameList nameList[] = {
 
 int main (int argc, char **argv)
 {
+  clock_t begin_time = clock();
+
   GetNameList(argc, argv);
 
   PrintNameList(stdout);
@@ -59,6 +63,13 @@ int main (int argc, char **argv)
     SingleStep();
     if( stepCount >= stepLimit ) moreCycles = 0;
   }
+
+  clock_t end_time = clock();
+
+  double time_spent = (double)(end_time - begin_time)/CLOCKS_PER_SEC;
+  printf("\ntime_spent = %f seconds\n", time_spent);
+
+  return 0;
 }
 
 #include "in_rand.c"

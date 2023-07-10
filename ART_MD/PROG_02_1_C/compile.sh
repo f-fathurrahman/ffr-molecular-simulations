@@ -1,1 +1,1 @@
-gcc -O3 main.c -o main.x -lm
+gcc -O3 -funroll-all-loops main.c -o main.x -lm
