@@ -4,9 +4,10 @@
 
 int GetNameList (int argc, char **argv)
 {
-  int id, j, k, match, ok;
+  int j, k, match, ok;
   char buff[80], *token;
   FILE *fp;
+  char *status;
 
   // Try to catch error here
   if( argc < 2 ) {
@@ -22,7 +23,10 @@ int GetNameList (int argc, char **argv)
      nameList[k].vStatus = 0;
   ok = 1;
   while (1) {
-    fgets (buff, 80, fp);
+    status = fgets (buff, 80, fp);
+    if(status == NULL) {
+      //printf("Get NULL when calling fgets\n");
+    }
     if (feof (fp)) break;
     token = strtok (buff, " \t\n");
     if (! token) break;

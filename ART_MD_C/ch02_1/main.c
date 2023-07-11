@@ -4,7 +4,7 @@
 
 #define NDIM  2
 
-#include "in_mddefs.h"
+#include "../in_mddefs.h"
 
 typedef struct {
   VecR r, rv, ra;
@@ -72,6 +72,6 @@ int main( int argc, char **argv )
   return 0;
 }
 
-#include "in_rand.c"
-#include "in_errexit.c"
-#include "in_namelist.c"
+#include "../in_rand.c"
+#include "../in_errexit.c"
+#include "../in_namelist.c"

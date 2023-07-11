@@ -2,8 +2,8 @@
 
 #define NDIM  2
 
-// Macros and several 
-#include "in_mddefs.h"
+// Macros and several definitions
+#include "../in_mddefs.h"
 
 typedef struct {
   VecR r, rv, ra;
@@ -83,6 +83,7 @@ int main (int argc, char **argv)
   fclose(veldist_file);
 }
 
-#include "in_rand.c"
-#include "in_errexit.c"
-#include "in_namelist.c"
+#include "../in_rand.c"
+#include "../in_errexit.c"
+#include "../in_namelist.c"
+
