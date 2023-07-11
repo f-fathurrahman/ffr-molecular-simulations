@@ -38,7 +38,7 @@ function main()
     # This is using vector of structs
     mol = init_coords( input_vars, params )
     init_velocities!( mol, input_vars, params )
-    init_accelarations!( mol )
+    #init_accelarations!( mol )
     
     #print_mol_xyz( mol, "TRAJ_0.xyz", "w", LJ2ANG )
 
@@ -66,4 +66,4 @@ function main()
 end
 
 @time main()
-#@time main()
+@time main()

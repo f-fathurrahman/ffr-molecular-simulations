@@ -53,17 +53,19 @@ function compute_forces!( mol::Vector{Mol}, rCut::Float64, region::Vector{Float6
     rrCut = rCut^2
     
     nMol = length(mol)
-    for n = 1:nMol
+    for n in 1:nMol
         mol[n].ra[1] = 0.0
         mol[n].ra[2] = 0.0
     end
     #
     uSum = 0.0
     virSum = 0.0
+    dr = MVector(0.0, 0.0)
     #
     for j1 in 1:nMol-1, j2 in j1+1:nMol
         #
-        dr = mol[j1].r - mol[j2].r
+        dr[1] = mol[j1].r[1] - mol[j2].r[1]
+        dr[2] = mol[j1].r[2] - mol[j2].r[2]
         #
         vwrap_all!( dr, region )
         #
@@ -74,13 +76,15 @@ function compute_forces!( mol::Vector{Mol}, rCut::Float64, region::Vector{Float6
             rri3 = rri^3
             fcVal = 48.0 * rri3 * ( rri3 - 0.5 ) * rri
             # 1st particle, unit mass
-            mol[j1].ra = mol[j1].ra + fcVal*dr
+            mol[j1].ra[1] += fcVal*dr[1]
+            mol[j1].ra[2] += fcVal*dr[2]
             # 2nd particle, unit masss
-            mol[j2].ra = mol[j2].ra - fcVal*dr
+            mol[j2].ra[1] -= fcVal*dr[1]
+            mol[j2].ra[2] -= fcVal*dr[2]
             #
-            uSum = uSum + 4.0*rri3*(rri3 - 1.0) + 1.0
+            uSum += 4.0*rri3*(rri3 - 1.0) + 1.0
             #
-            virSum = virSum + fcVal*rr
+            virSum += fcVal*rr
         end # if rr
     end # j2, j1
     return uSum, virSum

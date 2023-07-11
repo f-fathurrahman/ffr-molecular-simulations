@@ -1,5 +1,9 @@
+Pkg.activate("../")
+
 using Printf
 using Random
+
+using StaticArrays: MVector
 
 const NDIM = 2
 const LJ2ANG = 3.4  # LJ unit to Angstrom

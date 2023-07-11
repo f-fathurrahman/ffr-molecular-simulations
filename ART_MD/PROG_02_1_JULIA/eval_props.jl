@@ -34,11 +34,12 @@ function eval_props!(
     density, uSum, virSum, totEnergy, kinEnergy, pressure
 )
     NDIM = 2 # HARDCODED
-    vSum = [0.0, 0.0]
+    vSum = MVector(0.0, 0.0)
     vvSum = 0.0
     nMol = length(mol)
-    for n = 1:nMol
-        vSum = vSum + mol[n].rv
+    for n in 1:nMol
+        vSum[1] = vSum[1] + mol[n].rv[1]
+        vSum[2] = vSum[2] + mol[n].rv[2]
         vv = mol[n].rv[1]^2 + mol[n].rv[2]^2
         vvSum = vvSum + vv
     end
