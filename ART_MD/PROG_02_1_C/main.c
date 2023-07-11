@@ -45,7 +45,7 @@ NameList nameList[] = {
 
 #include "PrintSummary.c"
 
-int main (int argc, char **argv)
+int main( int argc, char **argv )
 {
   clock_t begin_time = clock();
 
