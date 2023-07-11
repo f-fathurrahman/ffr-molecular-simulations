@@ -1,8 +1,8 @@
-
 /* [[pr_02_2 - velocity distribution]] */
 
 #define NDIM  2
 
+// Macros and several 
 #include "in_mddefs.h"
 
 typedef struct {
@@ -40,6 +40,10 @@ NameList nameList[] = {
   NameR(temperature),
 };
 
+// Output files, make them global variables
+FILE *summary_file;
+FILE *veldist_file;
+
 #include "SetParams.c"
 #include "AllocArrays.c"
 #include "InitCoords.c"
@@ -62,6 +66,10 @@ NameList nameList[] = {
 int main (int argc, char **argv)
 {
   GetNameList(argc, argv);
+  
+  summary_file = fopen("SUMMARY.dat", "w");
+  veldist_file = fopen("VELDIST.dat", "w");
+  
   PrintNameList(stdout);
   SetParams();
   SetupJob();
@@ -70,6 +78,9 @@ int main (int argc, char **argv)
     SingleStep();
     if (stepCount >= stepLimit) moreCycles = 0;
   }
+
+  fclose(summary_file);
+  fclose(veldist_file);
 }
 
 #include "in_rand.c"

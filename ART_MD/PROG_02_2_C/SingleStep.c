@@ -1,6 +1,6 @@
-void SingleStep ()
+void SingleStep()
 {
-  ++ stepCount;
+  ++stepCount;
   timeNow = stepCount * deltaT;
   LeapfrogStep(1);
   ApplyBoundaryCond();
@@ -13,11 +13,15 @@ void SingleStep ()
   LeapfrogStep(2);
   EvalProps();
   AccumProps(1);
-  if( stepCount >= stepEquil && (stepCount - stepEquil) % stepVel == 0 )
-     EvalVelDist();
+  
+  // Evaluate velocity distribution here
+  if( stepCount >= stepEquil && (stepCount - stepEquil) % stepVel == 0 ) {
+    EvalVelDist();
+  }
+     
   if( stepCount % stepAvg == 0 ) {
     AccumProps(2);
-    PrintSummary(stdout);
+    PrintSummary(summary_file);
     AccumProps(0);
   }
 }
