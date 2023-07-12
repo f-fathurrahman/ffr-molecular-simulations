@@ -1,5 +1,10 @@
 .vscode
 
+*.exe
+*.pdb
+*.obj
+
+
 *.dat
 
 WORKS_*
