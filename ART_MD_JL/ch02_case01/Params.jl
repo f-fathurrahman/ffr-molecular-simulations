@@ -4,6 +4,12 @@ mutable struct Params
     nMol::Int64
     velMag::Float64
 end
+# This datatype represent some parameters that are derived
+# or calculated from InputVars.
+# Some of them might be InputVars as well
+# This is translated from SetParams.c
+
+
 
 function Params( input_vars::InputVars )
     #

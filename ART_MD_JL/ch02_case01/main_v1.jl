@@ -1,29 +1,9 @@
 Pkg.activate("../")
 
-using Printf
-using Random
+push!(LOAD_PATH, pwd())
 
-using StaticArrays: MVector
-
-const NDIM = 2
-const LJ2ANG = 3.4  # LJ unit to Angstrom
-
-include("datatypes.jl")
-
-include("InputVars.jl")
-include("Params.jl")
-
-include("init_coords.jl")
-include("init_velocities.jl")
-include("init_accelarations.jl")
-include("print_mol_xyz.jl")
-
-include("accum_props.jl")
-include("eval_props.jl")
-include("apply_boundary_cond.jl")
-include("compute_forces.jl")
-include("leapfrog_step.jl")
-include("single_step.jl")
+import Random
+using ARTMDCh02
 
 function main()
     

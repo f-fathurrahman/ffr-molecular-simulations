@@ -5,9 +5,9 @@ mutable struct Mol
 end
 
 mutable struct Property
-    val::Float64
-    s::Float64
-    s2::Float64
+    val::Float64 # current value
+    s::Float64 # sum
+    s2::Float64 # variance
 end
 
 mutable struct Atoms
