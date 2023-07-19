@@ -1,0 +1,64 @@
+---
+title: "Molecular Dynamics"
+author: "Fadjar Fathurrahman"
+format:
+  revealjs:
+    smaller: true
+    scrollable: true
+---
+
+## Potential energy
+
+Potential energy $u(r_{ij})$, between two particles located at $\mathbf{r}_{i}$
+and $\mathbf{r}_{j}$
+$$
+u(r_{ij}) = \begin{cases}
+4 \epsilon \left[\left(
+    \dfrac{\sigma}{r_{ij}}\right)^{12} -
+    \left(\dfrac{\sigma}{r_{ij}}\right)^{6}\right] & r_{ij} < r_{c} \\
+0 & r_{ij}>r_{c}
+\end{cases}
+$$
+with $\mathbf{r}_{ij} = \mathbf{r}_{i} - \mathbf{r_{j}}$ and $r_{ij}=\left|\mathbf{r}_{ij}\right|$.
+
+Soft sphere potential:
+$$
+u(r_{ij}) = \begin{cases}
+4\epsilon\left[\left(\dfrac{\sigma}{r_{ij}}\right)^{12} - \left(\dfrac{\sigma}{r_{ij}}\right)^{6}\right]+\epsilon & r_{ij}<r_{c}=2^{1/6}\sigma\\
+0 & r_{ij}>r_{c}
+\end{cases}
+$$
+
+The force corresponding to $u(r)$ is:
+$$
+\mathbf{f} = -\nabla u(r)
+$$
+
+The force that atom $j$ exerts on atom $i$ is
+$$
+\mathbf{f}_{ij} = \left(\dfrac{48\epsilon}{\sigma^{2}}\right)
+\left[\left(\dfrac{\sigma}{r_{ij}}\right)^{14} -
+\dfrac{1}{2}\left(\dfrac{\sigma}{r_{ij}}\right)^{8}
+\right]\mathbf{r}_{ij}
+$$
+
+Equations of motion:
+$$
+m \ddot{\mathbf{r}_{i}} = \mathbf{f}_{i} = \sum_{j\neq i}^{N_{m}} \mathbf{f}_{ij}
+$$
+
+Newton's third law:
+$$
+\mathbf{f}_{ij} = -\mathbf{f}_{ji}
+$$
+
+## Units (liquid argon)
+
+- Lengths are expressed in $\sigma$ which is equal to 3.4 armstrong
+
+- Energies are expressed in $\epsilon/k_B = 120 K$, or
+  $\epsilon = 120 \times 1.3806 \times 10^{-16}$ erg/atom
+
+- mass of an argon atom: $m = 39.95 \times 1.6746 \times 10^{-24}$ g
+
+- time unit in $2.161 \times 10^{-12}$ s
