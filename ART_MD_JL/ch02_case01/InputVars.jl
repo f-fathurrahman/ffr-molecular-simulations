@@ -11,7 +11,7 @@ end
 
 # Constructor
 function InputVars( ;
-    Δt = 0.005,
+    Δt = 0.0025,
     density = 0.8,
     initUcell = [20,20],
     step_avg = 100,

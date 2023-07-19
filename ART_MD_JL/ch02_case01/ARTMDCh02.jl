@@ -39,10 +39,14 @@ include("eval_props.jl")
 export eval_props!
 
 include("apply_boundary_cond.jl")
-
+export apply_boundary_cond!
 
 include("compute_forces.jl")
+export compute_forces!
+
 include("leapfrog_step.jl")
+export leapfrog_step!
+
 include("single_step.jl")
 export single_step!
 

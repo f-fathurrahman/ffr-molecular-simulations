@@ -28,17 +28,14 @@ function single_step!(
     nMol = length(mol)
 
     if step_count % step_avg == 0
+
+        # Compute the average
         do_props_accum!( 2, step_avg, totEnergy, kinEnergy, pressure )
 
         @printf("%5d %8.4f %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f\n",
             step_count, time_now, (vSum[1] + vSum[2])/nMol,
             totEnergy.s, totEnergy.s2, kinEnergy.s, kinEnergy.s2,
             pressure.s, pressure.s2 )
-
-        #print_mol_xyz( mol, "TRAJ_0.xyz", "a", LJ2ANG )
-
-        #@printf("%5d %18.10f %18.10f\n", step_count, time_now, (vSum[1] + vSum[1])/nMol )
-        #@printf("%5d %18.10f %18.10f %18.10f\n", step_count, time_now, totEnergy.s, totEnergy.s2 )
 
         do_props_accum!( 0, step_avg, totEnergy, kinEnergy, pressure )
     end

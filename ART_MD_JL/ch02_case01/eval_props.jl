@@ -20,10 +20,6 @@ function eval_props!(
     kinEnergy.val = 0.5*vvSum/Natoms
     totEnergy.val = kinEnergy.val + uSum/Natoms
     pressure.val = density*( vvSum + virSum ) / (Natoms*NDIM)
-
-    #println("")
-    #println("vSum = ", vSum)
-    #println("vvSum = ", vvSum)
     
     return vSum, vvSum
 end

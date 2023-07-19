@@ -22,8 +22,6 @@ function main()
     init_coords!( atoms, input_vars, params )
     init_velocities!( atoms, input_vars, params )
     #init_accelarations!( mol )
-    
-    #print_mol_xyz( atoms, "TRAJ_0.xyz", "w", LJ2ANG )
 
     tot_ene = Property(0.0, 0.0, 0.0)
     kin_ene = Property(0.0, 0.0, 0.0)
@@ -48,5 +46,4 @@ function main()
 
 end
 
-@time main()
-@time main()
+main()

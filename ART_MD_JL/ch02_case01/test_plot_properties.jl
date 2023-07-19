@@ -7,7 +7,7 @@ function do_plot()
     data = readdlm("energies.dat")
     f = Figure()
     ax = Axis(f[1,1])
-    lines!(ax, data[:,1], data[:,2])
+    lines!(ax, data[:,1], data[:,4])
     f
 end
 
