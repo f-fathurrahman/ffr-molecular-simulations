@@ -62,3 +62,68 @@ $$
 - mass of an argon atom: $m = 39.95 \times 1.6746 \times 10^{-24}$ g
 
 - time unit in $2.161 \times 10^{-12}$ s
+
+## Integration
+
+Jika $\Delta t$ melambangkan ukuran langkah waktu yang digunakan pada integrasi
+numerik, maka formula integrasi diaplikasikan untuk setiap komponen dari koordinat
+atom dan kecepatan.
+Untuk kecepatan digunakan:
+$$
+\mathbf{v}_{i}\left(t + \frac{h}{2}\right) =
+\mathbf{v}_{i}\left(t - \frac{h}{2}\right) + \Delta t \mathbf{a}_{i}(t)
+$$
+dan untuk posisi digunakan
+$$
+\mathbf{r}_{i}\left(t + h\right) =
+\mathbf{r}_{i}\left(t\right) + \Delta t \mathbf{v}_{i}\left(t + \frac{h}{2}\right)
+$$
+
+Metode ini dinamakan "leapfrog"
+karena posisi dan kecepatan dievaluasi pada waktu yang berbeda. Jika
+estimasi nilai untuk kecepatan diperlukan pada waktu ketika posisi baru dihitung
+maka kita dapat menggunakan:
+$$
+\mathbf{v}_{i}(t) = \mathbf{v}_{i}(t - h/2) +
+\frac{h}{2}\mathbf{a}_{i}(t)
+$$
+
+
+Formulasi alternatif
+$$
+\begin{align}
+\mathbf{v}(t + \Delta t/2) & = \mathbf{v}_{i}(t) + \frac{\Delta t}{2}\ \mathbf{a}_{i}(t) \\
+\mathbf{r}_{i}(t + \Delta t) & = \mathbf{r}_{i}(t) + \Delta t \ \mathbf{v}_{i}(t + \Delta t/2)
+\end{align}
+$$
+Gunakan posisi baru untuk menghitung nilai percepatan yang baru dan perbarui nilai
+kecepatan:
+$$
+\mathbf{v}_{i}(t + \Delta t) = \mathbf{v}_{i}(t + \Delta t/2) +
+\frac{\Delta t}{2}\ \mathrm{a}_{i}(t + \Delta t)
+$$
+
+
+## Pengukuran
+
+Tekanan (dengan $k_B = 1$):
+$$
+PV = N_{m} T + \frac{1}{d}\left\langle \sum_{i}^{N_m} \mathbf{r} \cdot \mathbf{f}_{i} \right\rangle
+$$
+Untuk kasus dua dimensi, volume diganti dengan luas.
+
+Untuk potensial pasangan, misalnya potensial Lennard-Jones, persamaan
+ini dapat ditulis sebagai penjumlahan untuk pasangan atom:
+$$
+PV = N_{m} T + \frac{1}{d} \left\langle \sum_{i < j} \mathbf{r}_{ij} \cdot
+\mathbf{f}_{ij} \right\rangle
+$$
+atau untuk medan gaya Lennard-Jones:
+$$
+PV = \frac{1}{2} \left\langle
+\sum_{i} \mathbf{v}_{i}^{2}
+48 \sum_{i < j} \mathbf{r}_{ij}^{-12} - \frac{1}{2} r_{ij}^{-6}
+\right\rangle
+$$
+
+
