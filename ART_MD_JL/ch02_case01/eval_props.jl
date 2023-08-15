@@ -2,6 +2,9 @@ function eval_props!(
     atoms::Atoms,
     density, uSum, virSum, totEnergy, kinEnergy, pressure
 )
+    # virSum is calculated in compute_forces!
+
+
     NDIM = size(atoms.r,1)
     vSum = [0.0, 0.0]
     vvSum = 0.0
@@ -25,6 +28,7 @@ function eval_props!(
 end
 
 
+# Arrays-of-struct version
 function eval_props!(
     mol::Vector{Mol},
     density, uSum, virSum, totEnergy, kinEnergy, pressure

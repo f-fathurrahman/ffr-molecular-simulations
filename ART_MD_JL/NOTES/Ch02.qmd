@@ -63,7 +63,48 @@ $$
 
 - time unit in $2.161 \times 10^{-12}$ s
 
-## Integration
+
+
+## Persamaan pada satuan MD (argon cair)
+
+Untuk dimensi panjang: $r \rightarrow r\sigma$
+
+Untuk energi: $e \rightarrow e\epsilon$
+
+Untuk waktu: $t \rightarrow t\sqrt{m\sigma^2/\epsilon}$
+
+
+Persamaan gerak:
+$$
+\ddot{\mathbf{r}}_{i} = 48 \sum_{j\neq i}
+\left( r_{ij}^{-14} - \frac{1}{2}r_{ij}^{-8} \right)
+\mathbf{r}_{ij}
+$$
+
+Energi kinetik:
+$$
+E_{K} = \frac{1}{2N_m} \sum_{i=1}^{N_m} \mathbf{v}_{i}^{2}
+$$
+
+Energi potensial:
+$$
+E_{U} = \frac{4}{N_m} \sum_{1\leq i \le j \leq N_m}
+\left( r_{ij}^{-12} - r_{ij}^{-6} \right)
+$$
+
+
+Satuan dari temperatur adalah $\epsilon/k_B$ dan karena setiap derajat kebebasan translasi
+memberikan kontribusi sebesar $k_B T/2$ pada energi kinetik, temperatur dari $d$-dimensional
+($d$ adalah 2 atau 3) adalah
+$$
+T = \frac{1}{dN_m} \sum_{i} \mathbf{v}_{i}^{2}
+$$
+
+Pada persamaan di atas telah digunakan 
+$k_B = 1$ sehingga satuan temperatur  dari MD juga telah terdefinisikan. 
+
+
+## Integrasi persamaan gerak
 
 Jika $\Delta t$ melambangkan ukuran langkah waktu yang digunakan pada integrasi
 numerik, maka formula integrasi diaplikasikan untuk setiap komponen dari koordinat
@@ -121,7 +162,7 @@ $$
 atau untuk medan gaya Lennard-Jones:
 $$
 PV = \frac{1}{2} \left\langle
-\sum_{i} \mathbf{v}_{i}^{2}
+\sum_{i} \mathbf{v}_{i}^{2} +
 48 \sum_{i < j} \mathbf{r}_{ij}^{-12} - \frac{1}{2} r_{ij}^{-6}
 \right\rangle
 $$
