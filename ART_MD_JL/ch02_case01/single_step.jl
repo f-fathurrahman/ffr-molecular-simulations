@@ -1,3 +1,4 @@
+# mol can be Atoms or Vector{Mol}
 function single_step!(
     mol, 
     input_vars, params,
@@ -5,6 +6,8 @@ function single_step!(
     step_count::Int64,
     time_now::Float64
 )
+    # Because step_count and time_now cannot be modified inplace we return them.
+
     Δt = input_vars.Δt
     region = params.region
     step_avg = input_vars.step_avg

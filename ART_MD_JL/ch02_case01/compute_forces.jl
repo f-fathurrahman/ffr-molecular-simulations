@@ -16,6 +16,7 @@ function compute_forces!(
     # This is loop over atom-pairs
     for j1 in 1:(Natoms-1), j2 in (j1+1):Natoms
         #
+        # Compute difference vector
         dr[1] = atoms.r[1,j1] - atoms.r[1,j2]
         dr[2] = atoms.r[2,j1] - atoms.r[2,j2]
         #

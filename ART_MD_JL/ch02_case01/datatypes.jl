@@ -9,6 +9,10 @@ mutable struct Property
     s::Float64 # sum
     s2::Float64 # variance
 end
+# XXX add name or symbol for Property?
+# Or name Property as abstract type?
+# eval_property can be dispatched according to concrete types
+
 
 mutable struct Atoms
     Natoms::Int64
