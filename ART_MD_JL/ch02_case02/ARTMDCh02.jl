@@ -26,14 +26,15 @@ export init_coords, init_coords!
 include("init_velocities.jl")
 export init_velocities!
 
-include("init_accelarations.jl")
-export init_accelarations!
-
-include("print_mol_xyz.jl")
-export print_mol_xyz
+#include("print_mol_xyz.jl")
+#export print_mol_xyz
 
 include("accum_props.jl")
 export prop_zero!, prop_accum!, prop_avg!, do_props_accum!
+
+
+include("Simulation.jl")
+export Simulation
 
 include("eval_props.jl")
 export eval_props!
