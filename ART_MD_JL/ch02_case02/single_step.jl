@@ -1,7 +1,5 @@
 function single_step!( sim::Simulation )
 
-    time_now = sim.time_now
-    step_count = sim.step_count
     totEnergy = sim.tot_ene
     kinEnergy = sim.kin_ene
     pressure = sim.pressure
@@ -12,8 +10,8 @@ function single_step!( sim::Simulation )
     rCut = sim.rCut
     density = sim.inp.density
 
-    step_count += 1 # increment
-    time_now = step_count*Δt
+    sim.step_count += 1 # increment, explicitly using sim.step_count
+    sim.time_now = sim.step_count*Δt
 
     atoms = sim.atoms
 
@@ -31,14 +29,14 @@ function single_step!( sim::Simulation )
 
     Natoms = atoms.Natoms
 
-    if step_count % step_avg == 0
+    if sim.step_count % step_avg == 0
         # Compute the average
         do_props_accum!( 2, step_avg, totEnergy, kinEnergy, pressure )
         @printf("%5d %8.4f %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f\n",
-            step_count, time_now, (vSum[1] + vSum[2])/Natoms,
+            sim.step_count, sim.time_now, (vSum[1] + vSum[2])/Natoms,
             totEnergy.s, totEnergy.s2, kinEnergy.s, kinEnergy.s2,
             pressure.s, pressure.s2 )
         do_props_accum!( 0, step_avg, totEnergy, kinEnergy, pressure )
     end
-    return step_count, time_now
+    return
 end
