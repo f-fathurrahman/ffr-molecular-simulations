@@ -31,7 +31,7 @@ export init_velocities!
 #export print_mol_xyz
 
 include("Simulation.jl")
-export Simulation
+export Simulation, close_all_files!
 
 include("eval_props.jl")
 export eval_props!
@@ -44,6 +44,9 @@ export compute_forces!
 
 include("leapfrog_step.jl")
 export leapfrog_step!
+
+include("eval_vel_dist.jl")
+export eval_vel_dist!
 
 include("single_step.jl")
 export single_step!
