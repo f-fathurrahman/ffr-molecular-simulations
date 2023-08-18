@@ -10,35 +10,45 @@ function eval_vel_dist!(
     Natoms = sim.atoms.Natoms
 
     # histVel: array
-    fill!(hist_vel, 0.0)
+    if sim.count_vel == 0 # reset if count_vel is zero
+        fill!(hist_vel, 0.0)
+    end
     
     Δv = sim.inp.range_vel / sim.inp.size_hist_vel
-    println("Δv = ", Δv)
+    #println("Δv = ", Δv)
 
     for ia in 1:Natoms
         vlen = sqrt(atoms.rv[1,ia]^2 + atoms.rv[2,ia]^2)
         j = floor(Int64, vlen / Δv) + 1 # offset by 1 ?
         # because j is using 0-based array
         idx_update = min(j, size_hist_vel)
-        hist_vel[idx_update] += 1
+        hist_vel[idx_update] += 1.0
         # increment count of histVel, min of size_hist_vel-1 (size of hist_vel) or index j
     end
-    sim.count_vel += 1 # increment countVel
+    sim.count_vel += 1 # increment count_vel
     
     # Calculate hFunction
     if sim.count_vel == sim.inp.limit_vel
+        
+        @printf("count_vel = %d, limit_vel = %d\n", sim.count_vel, sim.inp.limit_vel)
         hist_sum = sum(hist_vel)
-        hist_vel[:] *= (1/hist_sum) # scale
+        
+        @printf("hist_sum = %18.10f\n", hist_sum)
+        hist_vel[:] ./= hist_sum # scale
+        
+        @printf("hist_sum after normalization = %18.10f\n", sum(hist_vel))
+
         sim.hFunction = 0.0
         for i in 1:size_hist_vel
             if hist_vel[i] > 0.0
                 vi = (i - 0.5)*Δv
-                sim.hFunction =+ hist_vel[i] * log( hist_vel[i] / ( (i - 0.5)*Δv) )
+                sim.hFunction += hist_vel[i] * log( hist_vel[i] / vi )
                 # FIXME: check the denumerator: it should be v_{n}^{d-1}
                 # For 2d, d = 2, so it should be v_{n}
                 # We start from 1 instead of 0, the offset is -0.5
             end
         end
+        @printf("sim.hFunction = %18.10f\n", sim.hFunction)
         print_vel_dist(sim)
         # Print out the result here
         # Reset countVel

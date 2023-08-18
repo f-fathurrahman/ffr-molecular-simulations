@@ -38,6 +38,7 @@ function single_step!( sim::Simulation )
     cond1 = step_count >= step_equil
     cond2 = (step_count - step_equil) % step_vel == 0
     if cond1 && cond2
+        @printf("step_count = %d\n", step_count)
         eval_vel_dist!(sim)
     end
 

@@ -30,7 +30,7 @@ end
 # from inp::InputVars
 function Simulation( inp::InputVars;
     log_name="LOG_md",
-    vel_dist_name="VEL_DIST.dat",
+    vel_dist_name="VELDIST.dat",
     hfunc_name="HFUNC.dat"
 )
 
