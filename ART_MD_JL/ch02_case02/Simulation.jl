@@ -1,9 +1,8 @@
 mutable struct Simulation
-    input::InputVars
+    inp::InputVars
     atoms::Atoms
     rCut::Float64
     region::Vector{Float64}
-    nMol::Int64
     velMag::Float64
     tot_ene::Property
     kin_ene::Property
@@ -43,11 +42,10 @@ function Simulation( inp::InputVars )
     time_now = 0.0
 
     return Simulation(
-        input,
+        inp,
         atoms,
         rCut,
         region,
-        nMol,
         velMag,
         tot_ene,
         kin_ene,

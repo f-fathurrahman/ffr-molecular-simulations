@@ -16,6 +16,7 @@ export Atoms
 
 include("Property.jl")
 export Property
+export prop_zero!, prop_accum!, prop_avg!, do_props_accum!
 
 include("InputVars.jl")
 export InputVars
@@ -28,10 +29,6 @@ export init_velocities!
 
 #include("print_mol_xyz.jl")
 #export print_mol_xyz
-
-include("accum_props.jl")
-export prop_zero!, prop_accum!, prop_avg!, do_props_accum!
-
 
 include("Simulation.jl")
 export Simulation

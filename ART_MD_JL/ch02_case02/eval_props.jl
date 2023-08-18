@@ -12,7 +12,6 @@ function eval_props!(
 )
     # virSum is calculated in compute_forces!
 
-
     NDIM = size(atoms.r,1)
     vSum = [0.0, 0.0]
     vvSum = 0.0
