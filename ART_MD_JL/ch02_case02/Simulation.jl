@@ -1,3 +1,5 @@
+import Dates
+
 mutable struct Simulation
     inp::InputVars
     atoms::Atoms
@@ -10,6 +12,8 @@ mutable struct Simulation
     more_cycles::Bool
     step_count::Int64
     time_now::Float64
+    #
+    outdir::String
     #
     log_name::String
     log_file::IOStream
@@ -25,18 +29,17 @@ mutable struct Simulation
     hfunc_file::IOStream
 end
 
+# Add directory name for each run
+
 
 # In the current scenario, the atomistic structure is constructed
 # from inp::InputVars
 function Simulation( inp::InputVars;
+    outdir=".",
     log_name="LOG_md",
     vel_dist_name="VELDIST.dat",
     hfunc_name="HFUNC.dat"
 )
-
-    println("Input variables:")
-    println(inp)
-    println()
 
     density = inp.density
     initUcell = inp.initUcell
@@ -66,15 +69,30 @@ function Simulation( inp::InputVars;
     count_vel = 0
     hFunction = 0.0
 
-    log_file = open(log_name, "w")
-    vel_dist_file = open(vel_dist_name, "w")
-    hfunc_file = open(hfunc_name, "w")
+    # Create output directory if it is not existed yet
+    if !isdir(outdir)
+        mkdir(outdir)
+    end
+
+    info_file = open(joinpath(outdir, "INFO"), "w")
+    println(info_file, "Input variables:")
+    println(info_file, inp)
+    println(info_file)
+    println()
+    println(info_file, "Now = ", Dates.now())
+    close(info_file)
+
+    # Open files
+    log_file = open(joinpath(outdir,log_name), "w")
+    vel_dist_file = open(joinpath(outdir, vel_dist_name), "w")
+    hfunc_file = open(joinpath(outdir, hfunc_name), "w")
 
     return Simulation(
         inp, atoms,
         rCut, region, velMag,
         tot_ene, kin_ene, pressure,
         more_cycles, step_count, time_now,
+        outdir,
         log_name, log_file,
         hist_vel, count_vel, hFunction,
         vel_dist_name, vel_dist_file,
