@@ -14,11 +14,8 @@ VecR region, vSum;
 VecI initUcell;
 real deltaT, density, rCut, temperature, timeNow, uSum, velMag, vvSum;
 Prop kinEnergy, totEnergy;
+real virSum;
 int moreCycles, nMol, randSeed, stepAvg, stepCount, stepEquil, stepLimit;
-VecI cells;
-int *cellList;
-real dispHi, rNebrShell;
-int *nebrTab, nebrNow, nebrTabFac, nebrTabLen, nebrTabMax;
 real *histVel, hFunction, rangeVel;
 int countVel, limitVel, sizeHistVel, stepVel;
 
@@ -28,10 +25,8 @@ NameList nameList[] = {
   NameR(density),
   NameI(initUcell),
   NameI(limitVel),
-  NameI(nebrTabFac),
   NameI(randSeed),
   NameR(rangeVel),
-  NameR(rNebrShell),
   NameI(sizeHistVel),
   NameI(stepAvg),
   NameI(stepEquil),
@@ -52,7 +47,6 @@ FILE *hfunc_file;
 #include "InitAccels.c"
 #include "SetupJob.c"
 
-#include "BuildNebrList.c"
 #include "LeapfrogStep.c"
 #include "ApplyBoundaryCond.c"
 #include "ComputeForces.c"
@@ -76,6 +70,9 @@ int main (int argc, char **argv)
   SetParams();
   SetupJob();
   moreCycles = 1;
+
+  printf("nMol = %d\n", nMol);
+
   while(moreCycles) {
     SingleStep();
     if (stepCount >= stepLimit) moreCycles = 0;
