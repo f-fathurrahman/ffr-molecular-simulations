@@ -29,15 +29,8 @@ function eval_vel_dist!(
     
     # Calculate hFunction
     if sim.count_vel == sim.inp.limit_vel
-        
-        @printf("count_vel = %d, limit_vel = %d\n", sim.count_vel, sim.inp.limit_vel)
         hist_sum = sum(hist_vel)
-        
-        @printf("hist_sum = %18.10f\n", hist_sum)
-        hist_vel[:] ./= hist_sum # scale
-        
-        @printf("hist_sum after normalization = %18.10f\n", sum(hist_vel))
-
+        hist_vel[:] .*= (1/hist_sum) # normalize
         sim.hFunction = 0.0
         for i in 1:size_hist_vel
             if hist_vel[i] > 0.0
@@ -48,7 +41,6 @@ function eval_vel_dist!(
                 # We start from 1 instead of 0, the offset is -0.5
             end
         end
-        @printf("sim.hFunction = %18.10f\n", sim.hFunction)
         print_vel_dist(sim)
         # Print out the result here
         # Reset countVel
