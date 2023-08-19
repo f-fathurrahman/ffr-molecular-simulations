@@ -169,6 +169,7 @@ void PrintSummary (FILE *);
 void PrintTrajDev (FILE *);
 void PrintVacf (FILE *);
 void PrintVelDist (FILE *);
+void PrintVelDist2 (FILE *, FILE *);
 void ProcCutEdges (void);
 void ProcCutFaces (void);
 void ProcDelVerts (void);
