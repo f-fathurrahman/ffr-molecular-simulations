@@ -3,7 +3,7 @@
 *.exe
 *.pdb
 *.obj
-
+*.mod
 
 *.dat
 
