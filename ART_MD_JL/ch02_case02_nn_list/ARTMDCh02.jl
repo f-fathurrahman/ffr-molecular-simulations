@@ -12,7 +12,7 @@ const LJ2ANG = 3.4  # LJ unit to Angstrom
 export NDIM, LJ2ANG
 
 include("Atoms.jl")
-export Atoms
+export Atoms, print_xyz
 
 include("Property.jl")
 export Property
