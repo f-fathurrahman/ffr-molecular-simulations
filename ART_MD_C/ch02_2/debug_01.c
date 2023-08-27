@@ -9,6 +9,10 @@ typedef struct {
   VecR r, rv, ra;
 } Mol;
 
+
+//
+// These are global variables
+//
 Mol *mol;
 VecR region, vSum;
 VecI initUcell;
@@ -94,7 +98,7 @@ int main (int argc, char **argv)
   printf("invWid = [%f,%f]\n", invWid.x, invWid.y);
   
   // Initialize cellList to invalid values
-  for(n = nMol; n < nMol + VProd (cells); n ++) cellList[n] = -1;
+  for(n = nMol; n < nMol + VProd (cells); n++) cellList[n] = -1;
   
   DO_MOL {
 
@@ -133,11 +137,14 @@ int main (int argc, char **argv)
       m1 = VLinear(m1v, cells) + nMol; // linear index of first cell
       printf("\n[%d %d]: m1 = %d\n", m1x, m1y, m1);
       //for( offset = 0; offset < N_OFFSET; offset ++ ) {
-      for( offset = 0; offset < 1; offset++ ) {
+      for( offset = 0; offset < 1; offset++ ) { // DEBUG: check only for 1 offset
         printf("\noffset = %d\n", offset);
         VAdd(m2v, m1v, vOff[offset]);
-        VZero(shift);
-        VCellWrapAll(); // what's this?
+        VZero(shift); // set shift to zeros
+        
+        VCellWrapAll();
+        // this will access variables: m2v, cells, shift, region
+
         m2 = VLinear(m2v, cells) + nMol; // linear index of second cell
         printf("m2 = %d", m2);
         DO_CELL(j1, m1) {
