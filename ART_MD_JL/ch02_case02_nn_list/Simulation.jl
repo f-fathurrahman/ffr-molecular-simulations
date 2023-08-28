@@ -77,8 +77,10 @@ function Simulation( inp::InputVars;
     count_vel = 0
     hFunction = 0.0
 
-
+    #
     # Neighbor-cells stuffs
+    #
+
     cells = (
         floor(Int64, region[1] / (rCut + inp.r_nebr_shell)),
         floor(Int64, region[2] / (rCut + inp.r_nebr_shell))
@@ -91,7 +93,6 @@ function Simulation( inp::InputVars;
     disp_hi = 0.0
     nebr_now = 1
     nebr_tab_len = 0
-
 
 
     # Create output directory if it is not existed yet
