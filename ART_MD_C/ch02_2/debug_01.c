@@ -126,7 +126,7 @@ int main (int argc, char **argv)
   int i;
   int NcellList = VProd(cells) + nMol;
   for(i = 0; i < NcellList; i++) {
-    printf("i = %d cellList = %d\n", i, cellList[i]);
+    printf("%3d %3d\n", i, cellList[i]);
   }
 
 
@@ -146,13 +146,20 @@ int main (int argc, char **argv)
         // this will access variables: m2v, cells, shift, region
 
         m2 = VLinear(m2v, cells) + nMol; // linear index of second cell
-        printf("m2 = %d", m2);
+        printf("m2 = %d\n", m2);
+        printf("\nBegin outer cell loop\n");
+
+// #define DO_CELL(j, m)  for (j = cellList[m]; j >= 0; j = cellList[j])
+
         DO_CELL(j1, m1) {
           printf("\nj1 = %d cellList[j1] = %d, m1 = %d\n", j1, cellList[j1], m1);
-          printf("Next j = %d\n", cellList[j1]);
+          printf("Next j1 = %d\n", cellList[j1]);
+          printf("Begin inner cell loop\n");
           DO_CELL(j2, m2) {
+            printf("\nj2 = %d cellList[j2] = %d, m2 = %d\n", j2, cellList[j2], m2);
+            printf("Next j2 = %d\n", cellList[j2]);
             if (m1 != m2 || j2 < j1) {
-              printf("nebrTab is updated\n");
+              printf("nebrTab is updated: m1,m2=[%d,%d], j1,j2=[%d,%d]\n", m1, m2, j1, j2);
               VSub(dr, mol[j1].r, mol[j2].r);
               VVSub(dr, shift);
               if( VLenSq(dr) < rrNebr ) {
