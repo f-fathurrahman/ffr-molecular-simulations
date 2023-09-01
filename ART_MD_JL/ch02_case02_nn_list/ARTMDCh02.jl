@@ -39,6 +39,9 @@ export eval_props!
 include("apply_boundary_cond.jl")
 export apply_boundary_cond!
 
+include("build_nebr_list.jl")
+export build_nebr_list!
+
 include("compute_forces.jl")
 export compute_forces!
 
