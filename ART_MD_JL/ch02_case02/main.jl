@@ -9,7 +9,7 @@ function main()
     Random.seed!(1234)
     sim = Simulation(
         InputVars(
-            Δt = 0.001, density = 0.2, initUcell = [50,50],
+            Δt = 0.001, density = 0.8, initUcell = [50,50],
             limit_vel = 4, range_vel = 3.0, size_hist_vel = 50,
             step_avg = 100, step_limit = 1000, step_vel = 5,
             temperature = 1.0

@@ -7,10 +7,6 @@ function single_step!( sim::Simulation )
     step_count = sim.step_count
     time_now = sim.time_now
 
-    totEnergy = sim.tot_ene
-    kinEnergy = sim.kin_ene
-    pressure = sim.pressure
-
     step_avg = sim.inp.step_avg
     step_equil = sim.inp.step_equil
     step_vel = sim.inp.step_vel
@@ -25,13 +21,25 @@ function single_step!( sim::Simulation )
     leapfrog_step!( atoms, Δt, update_vel_only=false )
     
     apply_boundary_cond!( atoms, region )
-    
-    uSum, virSum = compute_forces!( atoms, rCut, region )
-    
+
+    if sim.nebr_now
+        sim.nebr_now = false
+        sim.disp_hi = 0.0
+        build_nebr_list!( sim )
+    end
+
+    #uSum, virSum = compute_forces!( atoms, rCut, region )
+    uSum, virSum = compute_forces!( sim )
+
     leapfrog_step!( atoms, Δt, update_vel_only=true )
     
-    vSum, vvSum = eval_props!( atoms, density, uSum, virSum, totEnergy, kinEnergy, pressure )
+    #vSum, vvSum = eval_props!( atoms, density, uSum, virSum, totEnergy, kinEnergy, pressure )
+    vSum, vvSum = eval_props!( sim, uSum, virSum )
     
+    totEnergy = sim.tot_ene
+    kinEnergy = sim.kin_ene
+    pressure = sim.pressure
+
     do_props_accum!( 1, step_avg, totEnergy, kinEnergy, pressure )
 
     # Evaluate velocity distribution here

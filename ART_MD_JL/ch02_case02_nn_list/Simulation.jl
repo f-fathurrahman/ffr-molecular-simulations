@@ -17,7 +17,7 @@ mutable struct Simulation
     cell_list::Vector{Int64}
     disp_hi::Float64
     nebr_tab::Vector{Int64}
-    nebr_now::Int64
+    nebr_now::Bool
     nebr_tab_len::Int64
     nebr_tab_max::Int64
     #
@@ -91,7 +91,7 @@ function Simulation( inp::InputVars;
     nebr_tab = zeros(Int64, 2 * nebr_tab_max)
 
     disp_hi = 0.0
-    nebr_now = 1
+    nebr_now = true
     nebr_tab_len = 0
 
 
