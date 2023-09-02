@@ -1,7 +1,7 @@
 function compute_forces!( sim::Simulation )
     
-    rCut = sim.rCut
-    rrCut = rCut^2
+    r_cut = sim.r_cut
+    rr_cut = r_cut^2
 
     atoms = sim.atoms
     fill!(atoms.ra, 0.0)
@@ -30,7 +30,7 @@ function compute_forces!( sim::Simulation )
         #
         rr = dr[1]^2 + dr[2]^2
 
-        if rr < rrCut
+        if rr < rr_cut
             rri = 1.0/rr # rri is dr^{-2}
             rri3 = rri^3 # rri3 is dr^{-6}
             fcVal = 48.0 * rri3 * ( rri3 - 0.5 ) * rri
@@ -58,10 +58,10 @@ end
 # assume unit mass
 function compute_forces!(
     atoms::Atoms,
-    rCut::Float64,
+    r_cut::Float64,
     region::Vector{Float64}
 )
-    rrCut = rCut^2
+    rr_cut = r_cut^2
     Natoms = atoms.Natoms
     
     fill!(atoms.ra, 0.0)
@@ -83,7 +83,7 @@ function compute_forces!(
         #
         rr = dr[1]^2 + dr[2]^2
         #
-        if rr < rrCut
+        if rr < rr_cut
             rri = 1.0/rr # rri is dr^{-2}
             rri3 = rri^3 # rri3 is dr^{-6}
             fcVal = 48.0 * rri3 * ( rri3 - 0.5 ) * rri

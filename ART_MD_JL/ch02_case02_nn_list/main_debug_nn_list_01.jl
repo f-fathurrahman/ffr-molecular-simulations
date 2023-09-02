@@ -11,7 +11,7 @@ function idx_vlinear(p, s)
 end
 
 function print_info(sim::Simulation)
-    println("rCut = ", sim.rCut)
+    println("r_cut = ", sim.r_cut)
     println("Natoms = ", sim.atoms.Natoms)
     println("cells = ", sim.cells)
 end
@@ -122,7 +122,7 @@ function main()
     #print_xyz(sim.atoms)
     #plot_debug(sim)
 
-    rCut = sim.rCut
+    r_cut = sim.r_cut
     r_nebr_shell = sim.inp.r_nebr_shell
     cells = sim.cells
     region = sim.region
@@ -130,7 +130,7 @@ function main()
     atoms = sim.atoms
     Natoms = atoms.Natoms
 
-    rr_nebr = (rCut + r_nebr_shell)^2
+    rr_nebr = (r_cut + r_nebr_shell)^2
 
     build_cell_list!(cell_list, atoms, region, cells)
 

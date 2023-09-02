@@ -3,7 +3,7 @@ import Dates
 mutable struct Simulation
     inp::InputVars
     atoms::Atoms
-    rCut::Float64
+    r_cut::Float64
     region::Vector{Float64}
     velMag::Float64
     tot_ene::Property
@@ -53,7 +53,7 @@ function Simulation( inp::InputVars;
     initUcell = inp.initUcell
     temperature = inp.temperature
 
-    rCut = 2.0^(1.0/6.0)
+    r_cut = 2.0^(1.0/6.0)
     region = initUcell ./ sqrt(density)
     Natoms = prod(initUcell)
     velMag = sqrt( NDIM*(1.0 - 1.0/Natoms) * temperature )
@@ -82,8 +82,8 @@ function Simulation( inp::InputVars;
     #
 
     cells = (
-        floor(Int64, region[1] / (rCut + inp.r_nebr_shell)),
-        floor(Int64, region[2] / (rCut + inp.r_nebr_shell))
+        floor(Int64, region[1] / (r_cut + inp.r_nebr_shell)),
+        floor(Int64, region[2] / (r_cut + inp.r_nebr_shell))
     )
 
     cell_list = zeros(Int64, prod(cells) + atoms.Natoms)
@@ -115,7 +115,7 @@ function Simulation( inp::InputVars;
 
     return Simulation(
         inp, atoms,
-        rCut, region, velMag,
+        r_cut, region, velMag,
         tot_ene, kin_ene, pressure,
         more_cycles, step_count, time_now,
         cells, cell_list,

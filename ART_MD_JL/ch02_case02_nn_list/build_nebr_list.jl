@@ -28,12 +28,12 @@ end
 
 function build_nebr_list!(sim)
 
-    rCut = sim.rCut
+    r_cut = sim.r_cut
     r_nebr_shell = sim.inp.r_nebr_shell
-    println("rCut = ", rCut)
+    println("r_cut = ", r_cut)
     println("r_nebr_shell = ", r_nebr_shell)
 
-    rrNebr = (rCut + r_nebr_shell)^2
+    rrNebr = (r_cut + r_nebr_shell)^2
     println("rrNebr = ", rrNebr)
     
     cells = sim.cells

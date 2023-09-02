@@ -13,7 +13,7 @@ function single_step!( sim::Simulation )
 
     Δt = sim.inp.Δt
     region = sim.region    
-    rCut = sim.rCut
+    r_cut = sim.r_cut
     density = sim.inp.density
 
     atoms = sim.atoms
@@ -28,7 +28,7 @@ function single_step!( sim::Simulation )
         build_nebr_list!( sim )
     end
 
-    #uSum, virSum = compute_forces!( atoms, rCut, region )
+    #uSum, virSum = compute_forces!( atoms, r_cut, region )
     uSum, virSum = compute_forces!( sim )
 
     leapfrog_step!( atoms, Δt, update_vel_only=true )
