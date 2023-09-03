@@ -1,10 +1,16 @@
-/* [[pr_03_1 - cells and leapfrog]] */
+
+/* [[pr_05_1 - diffusion]] */
 
 #include "../in_mddefs.h"
 
 typedef struct {
   VecR r, rv, ra;
 } Mol;
+typedef struct {
+  VecR *orgR, *rTrue;
+  real *rrDiffuse;
+  int count;
+} TBuf;
 
 Mol *mol;
 VecR region, vSum;
@@ -14,16 +20,26 @@ Prop kinEnergy, totEnergy;
 int moreCycles, nMol, stepAvg, stepCount, stepEquil, stepLimit;
 VecI cells;
 int *cellList;
-real virSum;
-Prop pressure;
+real dispHi, rNebrShell;
+int *nebrTab, nebrNow, nebrTabFac, nebrTabLen, nebrTabMax;
 real kinEnInitSum;
 int stepInitlzTemp;
+TBuf *tBuf;
+real *rrDiffuseAv;
+int countDiffuseAv, limitDiffuseAv, nBuffDiffuse, nValDiffuse,
+   stepDiffuse;
 
 NameList nameList[] = {
   NameR (deltaT),
   NameR (density),
   NameI (initUcell),
+  NameI (limitDiffuseAv),
+  NameI (nBuffDiffuse),
+  NameI (nebrTabFac),
+  NameI (nValDiffuse),
+  NameR (rNebrShell),
   NameI (stepAvg),
+  NameI (stepDiffuse),
   NameI (stepEquil),
   NameI (stepInitlzTemp),
   NameI (stepLimit),
@@ -35,28 +51,34 @@ NameList nameList[] = {
 #include "InitCoords.c"
 #include "InitVels.c"
 #include "InitAccels.c"
+#include "InitDiffusion.c"
 #include "SetupJob.c"
 
-#include "AdjustInitTemp.c"
+#include "BuildNebrList.c"
 #include "LeapfrogStep.c"
+#include "AdjustInitTemp.c"
 #include "ApplyBoundaryCond.c"
 #include "ComputeForces.c"
 #include "EvalProps.c"
 #include "AccumProps.c"
+#include "ZeroDiffusion.c"
+#include "AccumDiffusion.c"
+#include "EvalDiffusion.c"
 #include "SingleStep.c"
+
 #include "PrintSummary.c"
+#include "PrintDiffusion.c"
 
 int main (int argc, char **argv)
 {
-  printf("NDIM = %d\n", NDIM);
-  GetNameList(argc, argv);
-  PrintNameList(stdout);
-  SetParams();
-  SetupJob();
+  GetNameList (argc, argv);
+  PrintNameList (stdout);
+  SetParams ();
+  SetupJob ();
   moreCycles = 1;
-  while(moreCycles) {
-    SingleStep();
-    if( stepCount >= stepLimit ) moreCycles = 0;
+  while (moreCycles) {
+    SingleStep ();
+    if (stepCount >= stepLimit) moreCycles = 0;
   }
 }
 

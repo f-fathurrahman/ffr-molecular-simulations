@@ -1,10 +1,19 @@
-/* [[pr_03_1 - cells and leapfrog]] */
+
+/* [[pr_05_3 - transport coefficients]] */
 
 #include "../in_mddefs.h"
 
 typedef struct {
-  VecR r, rv, ra;
+  VecR r, rv, ra, rf[3];
+  real en;
 } Mol;
+typedef struct {
+  VecR *orgVel;
+  real *acfVel;
+  int count;
+  VecR orgTherm, orgVisc;
+  real *acfTherm, *acfVisc;
+} TBuf;
 
 Mol *mol;
 VecR region, vSum;
@@ -14,15 +23,27 @@ Prop kinEnergy, totEnergy;
 int moreCycles, nMol, stepAvg, stepCount, stepEquil, stepLimit;
 VecI cells;
 int *cellList;
+real dispHi, rNebrShell;
+int *nebrTab, nebrNow, nebrTabFac, nebrTabLen, nebrTabMax;
 real virSum;
 Prop pressure;
 real kinEnInitSum;
 int stepInitlzTemp;
+TBuf *tBuf;
+real *avAcfVel, intAcfVel;
+int countAcfAv, limitAcfAv, nBuffAcf, nValAcf, stepAcf;
+real *avAcfTherm, *avAcfVisc, intAcfTherm, intAcfVisc;
 
 NameList nameList[] = {
   NameR (deltaT),
   NameR (density),
   NameI (initUcell),
+  NameI (limitAcfAv),
+  NameI (nBuffAcf),
+  NameI (nebrTabFac),
+  NameI (nValAcf),
+  NameR (rNebrShell),
+  NameI (stepAcf),
   NameI (stepAvg),
   NameI (stepEquil),
   NameI (stepInitlzTemp),
@@ -35,28 +56,35 @@ NameList nameList[] = {
 #include "InitCoords.c"
 #include "InitVels.c"
 #include "InitAccels.c"
+#include "InitVacf.c"
 #include "SetupJob.c"
 
-#include "AdjustInitTemp.c"
+#include "BuildNebrList.c"
 #include "LeapfrogStep.c"
+#include "AdjustInitTemp.c"
 #include "ApplyBoundaryCond.c"
 #include "ComputeForces.c"
 #include "EvalProps.c"
 #include "AccumProps.c"
+#include "ZeroVacf.c"
+#include "Integrate.c"
+#include "AccumVacf.c"
+#include "EvalVacf.c"
 #include "SingleStep.c"
+
 #include "PrintSummary.c"
+#include "PrintVacf.c"
 
 int main (int argc, char **argv)
 {
-  printf("NDIM = %d\n", NDIM);
-  GetNameList(argc, argv);
-  PrintNameList(stdout);
-  SetParams();
-  SetupJob();
+  GetNameList (argc, argv);
+  PrintNameList (stdout);
+  SetParams ();
+  SetupJob ();
   moreCycles = 1;
-  while(moreCycles) {
-    SingleStep();
-    if( stepCount >= stepLimit ) moreCycles = 0;
+  while (moreCycles) {
+    SingleStep ();
+    if (stepCount >= stepLimit) moreCycles = 0;
   }
 }
 
