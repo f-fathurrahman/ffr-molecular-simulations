@@ -4,8 +4,8 @@ void ComputeForces ()
   real fcVal, rr, rrCut, rri, rri3, uVal;
   int j1, j2, n;
 
-  rrCut = Sqr (rCut);
-  DO_MOL VZero (mol[n].ra);
+  rrCut = Sqr(rCut);
+  DO_MOL VZero(mol[n].ra);
   uSum = 0.;
   for (n = 0; n < nebrTabLen; n ++) {
     j1 = nebrTab[2 * n];

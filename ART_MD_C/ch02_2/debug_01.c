@@ -136,8 +136,8 @@ int main (int argc, char **argv)
       VSet(m1v, m1x, m1y);
       m1 = VLinear(m1v, cells) + nMol; // linear index of first cell
       printf("\n[%d %d]: m1 = %d\n", m1x, m1y, m1);
-      //for( offset = 0; offset < N_OFFSET; offset ++ ) {
-      for( offset = 0; offset < 1; offset++ ) { // DEBUG: check only for 1 offset
+      for( offset = 0; offset < N_OFFSET; offset ++ ) {
+      //for( offset = 0; offset < 1; offset++ ) { // DEBUG: check only for 1 offset
         printf("\noffset = %d\n", offset);
         VAdd(m2v, m1v, vOff[offset]);
         VZero(shift); // set shift to zeros
@@ -148,9 +148,6 @@ int main (int argc, char **argv)
         m2 = VLinear(m2v, cells) + nMol; // linear index of second cell
         printf("m2 = %d\n", m2);
         printf("\nBegin outer cell loop\n");
-
-// #define DO_CELL(j, m)  for (j = cellList[m]; j >= 0; j = cellList[j])
-
         DO_CELL(j1, m1) {
           printf("\nj1 = %d cellList[j1] = %d, m1 = %d\n", j1, cellList[j1], m1);
           printf("Next j1 = %d\n", cellList[j1]);
@@ -178,6 +175,13 @@ int main (int argc, char **argv)
   }
 
 
+  printf("nebrTabLen = %d\n", nebrTabLen);
+
+  for (n = 0; n < nebrTabLen; n ++) {
+    j1 = nebrTab[2 * n];
+    j2 = nebrTab[2 * n + 1];
+    printf("n = %3d atoms pair: (%3d %3d)\n", n, j1, j2);
+  }
 
 
 /*  for (m1y = 0; m1y < cells.y; m1y ++) {
