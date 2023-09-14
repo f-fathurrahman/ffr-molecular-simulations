@@ -7,10 +7,10 @@ format:
     scrollable: true
 ---
 
-## Potential energy
+## Energi potensial
 
-Potential energy $u(r_{ij})$, between two particles located at $\mathbf{r}_{i}$
-and $\mathbf{r}_{j}$
+Energi interaksi (potensial) $u(r_{ij})$, antara dua partikel yang terletak pada $\mathbf{r}_{i}$
+dan $\mathbf{r}_{j}$ dapat dituliskan sebagai berikut.
 $$
 u(r_{ij}) = \begin{cases}
 4 \epsilon \left[\left(
@@ -19,9 +19,11 @@ u(r_{ij}) = \begin{cases}
 0 & r_{ij}>r_{c}
 \end{cases}
 $$
-with $\mathbf{r}_{ij} = \mathbf{r}_{i} - \mathbf{r_{j}}$ and $r_{ij}=\left|\mathbf{r}_{ij}\right|$.
+dengan
+$\mathbf{r}_{ij} = \mathbf{r}_{i} - \mathbf{r_{j}}$ dan
+$r_{ij}=\left|\mathbf{r}_{ij}\right|$.
 
-Soft sphere potential:
+Potensial bola lunak:
 $$
 u(r_{ij}) = \begin{cases}
 4\epsilon\left[\left(\dfrac{\sigma}{r_{ij}}\right)^{12} - \left(\dfrac{\sigma}{r_{ij}}\right)^{6}\right]+\epsilon & r_{ij}<r_{c}=2^{1/6}\sigma\\
@@ -29,12 +31,13 @@ u(r_{ij}) = \begin{cases}
 \end{cases}
 $$
 
-The force corresponding to $u(r)$ is:
+Gaya yang diakibatkan oleh medan potensial (konservatif) $u(r)$ adalah
 $$
 \mathbf{f} = -\nabla u(r)
 $$
 
-The force that atom $j$ exerts on atom $i$ is
+Gaya yang dikerjakan oleh atom ke-$j$ terhadap atom ke-$i$ dapat dituliskan
+sebagai
 $$
 \mathbf{f}_{ij} = \left(\dfrac{48\epsilon}{\sigma^{2}}\right)
 \left[\left(\dfrac{\sigma}{r_{ij}}\right)^{14} -
@@ -42,17 +45,17 @@ $$
 \right]\mathbf{r}_{ij}
 $$
 
-Equations of motion:
+Persamaan gerak:
 $$
 m \ddot{\mathbf{r}_{i}} = \mathbf{f}_{i} = \sum_{j\neq i}^{N_{m}} \mathbf{f}_{ij}
 $$
 
-Newton's third law:
+Hukum ketiga Newton (aksi-reaksi):
 $$
 \mathbf{f}_{ij} = -\mathbf{f}_{ji}
 $$
 
-## Units (liquid argon)
+## Satuan (argon cair (liquid argon))
 
 - Lengths are expressed in $\sigma$ which is equal to 3.4 armstrong
 
@@ -166,5 +169,41 @@ PV = \frac{1}{2} \left\langle
 48 \sum_{i < j} \mathbf{r}_{ij}^{-12} - \frac{1}{2} r_{ij}^{-6}
 \right\rangle
 $$
+
+## Equilibrasi
+
+Karakterisasi ekuilibrium pada dasarnya adalah tugas yang sulit, terutama
+untuk sistem kecil yang sifatnya sangat berfluktuasi.
+
+Salah satu ukuran dari ekuilibrasi adalah laju di mana
+distribusi kecepatan konvergen ke bentuk finalnya. Menurut teori,
+distribusi dari kecepatan ini adalah distribusi Maxwell:
+$$
+f(\mathbf{v}) = \frac{\rho}{(2\pi T)^{d/2}} e^{-v^2/2T}
+$$
+Setelah integrasi variabel sudut diperoleh:
+$$
+f(\mathbf{v}) \propto v^{d-1} e^{-v^2/2T}
+$$
+
+
+
+Fungsi-H Boltzmann memiliki posisi yang penting dalam mekanika statistik.
+Fungsi ini didefinisikan sebagai:
+$$
+H(t) = \int f(\mathbf{v},t) \log f(\mathbf{v},t) \, \mathrm{d}\mathbf{v}
+$$
+dan dapat dibuktikan bahwa:
+$$
+\left\langle \frac{\mathrm{d}H}{\mathrm{d}t} \right\rangle \leq 0
+$$
+Untuk menghitung $H(t)$ kita
+dapat menggunakan histogram kecepatan.
+Jika faktor konstan diabaikan, maka $H(t)$ dapat diaproksimasi dengan
+$$
+h(t) = \sum_{n} h_{n} \log \left( \frac{h_n}{v_{n}^{d-1}} \right)
+$$
+
+
 
 
