@@ -63,13 +63,11 @@ function Simulation(
     end
 
     info_file = open(joinpath(outdir, "INFO"), "w")
-    println()
+    println(info_file)
     println(info_file, "Now = ", Dates.now())
-    println()
+    println(info_file)
     println(info_file, "Input variables:")
     println(info_file, inp)
-    println(info_file)
-    println()
     println(info_file, "Calculated parameters:")
     println(info_file, "----------------------")
     println(info_file, "rCut = ", rCut)

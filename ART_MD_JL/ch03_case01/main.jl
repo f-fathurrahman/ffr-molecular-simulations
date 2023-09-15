@@ -13,7 +13,7 @@ function main()
             step_avg = 20, step_limit = 5000,
             temperature = 1.0
         ),
-        outdir="MDRUN_3"
+        outdir="MDRUN_0"
     )
     while sim.step_count <= sim.inp.step_limit
         single_step!(sim)
