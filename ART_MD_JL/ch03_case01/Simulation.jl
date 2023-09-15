@@ -38,7 +38,7 @@ function Simulation(
     temperature = inp.temperature
 
     rCut = 2.0^(1.0/6.0)
-    region = initUcell ./ sqrt(density)
+    region = initUcell ./ density^(1/NDIM)
     Natoms = prod(initUcell)
     velMag = sqrt( NDIM*(1.0 - 1.0/Natoms) * temperature )
 
@@ -63,11 +63,19 @@ function Simulation(
     end
 
     info_file = open(joinpath(outdir, "INFO"), "w")
+    println()
+    println(info_file, "Now = ", Dates.now())
+    println()
     println(info_file, "Input variables:")
     println(info_file, inp)
     println(info_file)
     println()
-    println(info_file, "Now = ", Dates.now())
+    println(info_file, "Calculated parameters:")
+    println(info_file, "----------------------")
+    println(info_file, "rCut = ", rCut)
+    println(info_file, "region = ", region)
+    println(info_file, "Natoms = ", Natoms)
+    println(info_file, "velMag = ", velMag)
     close(info_file)
 
     # Open files
