@@ -1,5 +1,25 @@
 import Dates
 
+mutable struct MyRandomGenerator
+    randSeedP::Int32
+end
+
+function MyRandomGenerator(;seed=Int32(17))
+    @assert seed != 0
+    return MyRandomGenerator(seed)
+end
+
+function rand_r!(rnd::MyRandomGenerator)
+    IADD = Int32(453806245)
+    IMUL = Int32(314159269)
+    MASK = Int32(2147483647)
+    SCALE = 0.4656612873e-9
+    #
+    rnd.randSeedP = (rnd.randSeedP * IMUL + IADD) & MASK
+    return rnd.randSeedP * SCALE
+end
+
+
 mutable struct Simulation
     inp::InputVars
     atoms::Atoms
@@ -30,8 +50,10 @@ function Simulation(
     log_name="LOG_md",
 )
     
-    # Let's fix NDIM here, will be passed to Atoms
-    NDIM = 3
+    # Read NDIM as length of inp.initUcell
+    NDIM = length(inp.initUcell)
+    @assert NDIM >= 2
+    @assert NDIM <= 3
 
     density = inp.density
     initUcell = inp.initUcell
