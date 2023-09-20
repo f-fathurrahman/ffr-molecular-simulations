@@ -12,11 +12,14 @@ VecI initUcell;
 real deltaT, density, rCut, temperature, timeNow, uSum, velMag, vvSum;
 Prop kinEnergy, totEnergy;
 int moreCycles, nMol, stepAvg, stepCount, stepEquil, stepLimit;
+
+// Variables that are related to cell division
 VecI cells;
 int *cellList;
+
 real virSum;
 Prop pressure;
-real kinEnInitSum;
+real kinEnInitSum; // what's this ?
 int stepInitlzTemp;
 
 NameList nameList[] = {
