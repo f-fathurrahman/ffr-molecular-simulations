@@ -1,4 +1,6 @@
+!----------------------------------
 SUBROUTINE ADJUST(Attemp, Nacc, Dr)
+!----------------------------------
 !
 !     adjusts maximum displacement such that 50% of the
 !     movels will be accepted
@@ -9,8 +11,14 @@ SUBROUTINE ADJUST(Attemp, Nacc, Dr)
 !
   USE m_globals, ONLY: hbox
   IMPLICIT NONE
-  INTEGER :: Attemp, Nacc, attempp, naccp
-  REAL(8) :: dro, frac, Dr
+  ! Arguments
+  INTEGER :: Attemp, Nacc
+  REAL(8) :: Dr
+  ! Local variables
+  INTEGER :: attempp, naccp
+  REAL(8) :: dro, frac
+  !
+  ! saved (state) variables
   SAVE naccp, attempp
  
   IF( (Attemp == 0) .OR. (attempp >= Attemp) ) THEN
@@ -20,7 +28,10 @@ SUBROUTINE ADJUST(Attemp, Nacc, Dr)
     frac = DBLE(Nacc-naccp)/DBLE(Attemp-attempp)
     dro = Dr
     Dr = Dr*ABS(frac/0.5D0)
+    !
     ! limit the change:
+    ! ffr: these are hardcoded?  
+    !
     IF( Dr/dro > 1.5D0 ) Dr = dro*1.5D0
     IF( Dr/dro < 0.5D0 ) Dr = dro*0.5D0
     IF( Dr > HBOX/2.D0 ) Dr = HBOX/2.D0
@@ -37,3 +48,4 @@ SUBROUTINE ADJUST(Attemp, Nacc, Dr)
               ' Frac. acc.: ', f4.2, ' attempts: ', i7, ' succes: ', i7)
 
 END SUBROUTINE
+

@@ -17,7 +17,7 @@ PROGRAM MC_NVT
   WRITE(*,*) 'Monte Carlo program starts'
   WRITE(*,*)
   
-  ! initialize sysem
+  ! initialize system
   CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed)
   nmoves = ndispl
   
@@ -29,13 +29,22 @@ PROGRAM MC_NVT
   
   ! start MC-cycle
   DO ii = 1, 2
+
     ! ii=1 equilibration
     ! ii=2 production
     IF( ii == 1 ) THEN
       ncycl = equil
-      IF( ncycl /= 0 ) WRITE(*,*) ' Start equilibration '
+      IF( ncycl /= 0 ) THEN
+        WRITE(*,*)
+        WRITE(*,*) 'Start equilibration'
+        WRITE(*,*) '-------------------'
+      ENDIF
     ELSE
-      IF( ncycl /= 0 ) WRITE(*,*) ' Start production '
+      IF( ncycl /= 0 ) THEN
+        WRITE(*,*)
+        WRITE(*,*) 'Start production'
+        WRITE(*,*) '----------------'
+      ENDIF
       ncycl = prod
     ENDIF
     
