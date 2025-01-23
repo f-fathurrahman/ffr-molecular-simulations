@@ -36,16 +36,16 @@ PROGRAM MC_NVT
       ncycl = equil
       IF( ncycl /= 0 ) THEN
         WRITE(*,*)
-        WRITE(*,*) 'Start equilibration'
-        WRITE(*,*) '-------------------'
+        WRITE(*,*) 'Start equilibration with ncycl = ', ncycl
+        WRITE(*,*) '-----------------------------------------'
       ENDIF
     ELSE
+      ncycl = prod
       IF( ncycl /= 0 ) THEN
         WRITE(*,*)
-        WRITE(*,*) 'Start production'
-        WRITE(*,*) '----------------'
+        WRITE(*,*) 'Start production with ncycl = ', ncycl
+        WRITE(*,*) '--------------------------------------'
       ENDIF
-      ncycl = prod
     ENDIF
     
     attempt = 0
@@ -61,6 +61,7 @@ PROGRAM MC_NVT
         CALL MCMOVE(en, vir, attempt, nacc, dr, iseed)
       ENDDO
       
+      ! This is only done in production run
       IF( ii == 2 ) THEN
         ! sample averages
         IF( MOD(icycl,nsamp) == 0 ) CALL SAMPLE(icycl, en, vir)
@@ -69,7 +70,8 @@ PROGRAM MC_NVT
       IF( MOD(icycl,ncycl/5) == 0 ) THEN
         WRITE(*,'(1x,A,I8,A,I8)') 'Done ', icycl, ' cycles out of ', ncycl
         ! write intermediate configuration to file
-        CALL STORE(8, dr)
+        CALL STORE(8, dr) ! particle configurations
+        !
         ! adjust maximum displacements
         CALL ADJUST(attempt, nacc, dr)
       ENDIF
@@ -80,13 +82,13 @@ PROGRAM MC_NVT
       IF( attempt /= 0 ) WRITE(*, 99003) attempt, nacc, 100.d0*dble(nacc)/dble(attempt)
       ! test total energy
       CALL calc_total_energy(ent, virt)
-      !
+      ! error here?
       IF( ABS(ent-en) > 1.D-6 ) THEN
-        WRITE(*,*) 'PROBLEMS ENERGY'
+        WRITE(*,*) ' ######### PROBLEMS ENERGY ################ '
       ENDIF
       !
       IF( ABS(virt-vir) > 1.D-6) THEN
-        WRITE(*,*) 'PROBLEMS VIRIAL'
+        WRITE(*,*) ' ######### PROBLEMS VIRIAL ################ '
       ENDIF
       !
       WRITE(*,*)

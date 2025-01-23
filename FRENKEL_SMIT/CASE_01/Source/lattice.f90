@@ -1,10 +1,9 @@
+! place `npart' particles on a simple cubic
+! lattice with density 'rho'
 SUBROUTINE lattice()
-  
   USE m_globals, ONLY: npart, box, x, y, z
-  ! place `npart' particles on a simple cubic
-  ! lattice with density 'rho'
-  IMPLICIT NONE
-  
+  ! modifies x, y, z
+  IMPLICIT NONE  
   INTEGER :: i, j, k, itel, n
   REAL(8) :: dx, dy, dz, del
   REAL(8), PARAMETER :: LJ2ANG = 3.4d0

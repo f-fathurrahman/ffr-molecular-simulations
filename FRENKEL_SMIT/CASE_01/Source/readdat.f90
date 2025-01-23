@@ -70,7 +70,7 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
   READ(25, *) eps, sig, MASS, RC
   
   ! read/generate configuration
-  IF (ibeg.EQ.0) THEN
+  IF (ibeg==0) THEN
     ! generate configuration form lattice
     CALL LATTICE()
   ELSE
@@ -81,6 +81,9 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
     rhof = NPART/boxf**3
     IF( ABS(boxf-BOX) > 1D-6 ) THEN
       WRITE(6, 99007) rho, rhof
+    99007 FORMAT (' Requested density: ', f5.2, &
+              ' different from density on disk: ', f5.2, /, &
+              ' Rescaling of coordinates!')
     ENDIF
     DO i = 1, NPART
       READ (11, *) X(i), Y(i), Z(i)
@@ -93,10 +96,28 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
 
   ! write input data
   WRITE(*, 99001) Equil, Prod, Nsamp
+99001 FORMAT ('  Number of equilibration cycles             :', i10, /, &
+              '  Number of production cycles                :', i10, /, &
+              '  Sample frequency                           :',i10, /)
+
   WRITE(*, 99002) Ndispl, Dr
+99002 FORMAT ('  Number of att. to displ. a part. per cycle :', i10, /, &
+              '  Maximum displacement                       :', f10.3, &
+              //)
+
   WRITE(*, 99003) NPART, TEMP, rho, BOX
+99003 FORMAT ('  Number of particles                        :', i10, /, &
+              '  Temperature                                :', f10.3, &
+              /, '  Density                                    :', &
+              f10.3, /, '  Box length                                 :' &
+              , f10.3, /)
+
   WRITE(*, 99004) eps, sig, MASS
-  
+99004 FORMAT ('  Model parameters: ', /, '     epsilon: ', f5.3, /, &
+              '     sigma  : ', f5.3, /, '     mass   : ', f5.3)
+
+
+
   ! calculate parameters:
   BETA = 1/TEMP
   ! calculate cut-off radius potential
@@ -112,41 +133,22 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
     CALL calc_ener(ECUT, vir, RC2)
     WRITE(*, 99005) RC, ECUT
   END IF
-
-  IF( TAILCO ) THEN
-    WRITE(*, 99006) RC, CORU(RC, rho), CORP(RC, rho)
-  END IF
-  
-  RETURN
-
-99001 FORMAT ('  Number of equilibration cycles             :', i10, /, &
-              '  Number of production cycles                :', i10, /, &
-              '  Sample frequency                           :',i10, /)
-
-99002 FORMAT ('  Number of att. to displ. a part. per cycle :', i10, /, &
-              '  Maximum displacement                       :', f10.3, &
-              //)
-
-99003 FORMAT ('  Number of particles                        :', i10, /, &
-              '  Temperature                                :', f10.3, &
-              /, '  Density                                    :', &
-              f10.3, /, '  Box length                                 :' &
-              , f10.3, /)
-
-99004 FORMAT ('  Model parameters: ', /, '     epsilon: ', f5.3, /, &
-              '     sigma  : ', f5.3, /, '     mass   : ', f5.3)
-
 99005 FORMAT (' Simulations with TRUNCATED AND SHIFTED potential: ', /, &
               ' Potential truncated at :', f10.3, /, &
               ' Energy shif            :', f10.3, //)
 
+
+
+  IF( TAILCO ) THEN
+    WRITE(*, 99006) RC, CORU(RC, rho), CORP(RC, rho)
+  END IF
 99006 FORMAT (' Simulations with tail correction: ', /, &
               ' Potential truncated at  Rc =:', f10.3, /,& 
               ' Tail corrections:   energy = ', f10.3, ' pressure ', &
               f10.3, /, /)
 
-99007 FORMAT (' Requested density: ', f5.2, &
-              ' different from density on disk: ', f5.2, /, &
-              ' Rescaling of coordinates!')
+  
+  RETURN
+
 
 END SUBROUTINE
