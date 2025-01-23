@@ -25,7 +25,7 @@ SUBROUTINE MCMOVE(En, Vir, Attempt, Nacc, Dr, Iseed)
   o = INT(NPART*RANF(Iseed)) + 1
   
   ! calculate energy old configuration
-  CALL ENERI(X(o), Y(o), Z(o), o, jb, eno, viro)
+  CALL calc_ener_i(X(o), Y(o), Z(o), o, jb, eno, viro)
   
   ! give particle a random displacement
   xn = X(o) + (RANF(Iseed)-0.5D0)*Dr
@@ -33,7 +33,7 @@ SUBROUTINE MCMOVE(En, Vir, Attempt, Nacc, Dr, Iseed)
   zn = Z(o) + (RANF(Iseed)-0.5D0)*Dr
   
   ! calculate energy new configuration:
-  CALL ENERI(xn, yn, zn, o, jb, enn, virn)
+  CALL calc_ener_i(xn, yn, zn, o, jb, enn, virn)
   
   ! acceptance test
   IF( RANF(Iseed) < EXP(-BETA*(enn-eno)) ) THEN

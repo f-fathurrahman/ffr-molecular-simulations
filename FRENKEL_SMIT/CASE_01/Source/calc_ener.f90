@@ -1,4 +1,4 @@
-SUBROUTINE ENER(En, Vir, R2)
+SUBROUTINE calc_ener(En, Vir, R2)
 !
 ! calculate energy
 !

@@ -22,7 +22,7 @@ PROGRAM MC_NVT
   nmoves = ndispl
   
   ! total energy of the system
-  CALL TOTERG(en, vir)
+  CALL calc_total_energy(en, vir)
 
   WRITE(*,'(1x,A,F18.10)') 'Total energy of initial configuration:', en
   WRITE(*,'(1x,A,F18.10)') 'Total virial of initial configuration:', vir
@@ -79,7 +79,7 @@ PROGRAM MC_NVT
       !
       IF( attempt /= 0 ) WRITE(*, 99003) attempt, nacc, 100.d0*dble(nacc)/dble(attempt)
       ! test total energy
-      CALL TOTERG(ent, virt)
+      CALL calc_total_energy(ent, virt)
       !
       IF( ABS(ent-en) > 1.D-6 ) THEN
         WRITE(*,*) 'PROBLEMS ENERGY'

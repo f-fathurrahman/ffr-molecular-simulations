@@ -2,8 +2,8 @@ include make.inc
 
 SRC = \
 m_globals.f90 ranf.f90 rantest.f90 \
-lattice.f90 ener.f90 readdat.f90 coru.f90 corp.f90 \
-eneri.f90 toterg.f90 \
+lattice.f90 calc_ener.f90 readdat.f90 coru.f90 corp.f90 \
+calc_ener_i.f90 calc_total_energy.f90 \
 adjust.f90 mcmove.f90 sample.f90 store.f90
 
 

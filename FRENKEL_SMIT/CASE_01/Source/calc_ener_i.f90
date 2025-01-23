@@ -1,4 +1,4 @@
-SUBROUTINE ENERI(Xi, Yi, Zi, I, Jb, En, Vir)
+SUBROUTINE calc_ener_i(Xi, Yi, Zi, I, Jb, En, Vir)
 !
 !    calculates the energy of particle I with particles j=jb,npart
 !
@@ -45,7 +45,7 @@ SUBROUTINE ENERI(Xi, Yi, Zi, I, Jb, En, Vir)
       END IF
       
       r2 = dx*dx + dy*dy + dz*dz
-      CALL ENER(enij, virij, r2)
+      CALL calc_ener(enij, virij, r2)
       En = En + enij
       Vir = Vir + virij
     ENDIF

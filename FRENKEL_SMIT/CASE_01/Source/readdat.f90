@@ -59,7 +59,7 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
   IF (NPART > NPMax) THEN
     WRITE(*, *) ' ERROR: number of particles too large'
     STOP
-  END IF
+  ENDIF
   BOX = (NPART/rho)**(1.D0/3.D0)
   HBOX = BOX/2
   
@@ -109,7 +109,7 @@ SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
   IF( SHIFT ) THEN
     ! calculate energy of the shift
     ECUT = 0
-    CALL ENER(ECUT, vir, RC2)
+    CALL calc_ener(ECUT, vir, RC2)
     WRITE(*, 99005) RC, ECUT
   END IF
 
