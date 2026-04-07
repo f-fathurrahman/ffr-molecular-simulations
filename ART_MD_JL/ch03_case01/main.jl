@@ -1,5 +1,3 @@
-Pkg.activate("../")
-
 push!(LOAD_PATH, pwd())
 
 import Random

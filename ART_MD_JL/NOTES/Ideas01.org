@@ -1,0 +1,14 @@
+#+title: Dasar Dinamika Molekular
+#+author: Fadjar Fathurrahman
+
+* Pendahuluan
+
+Catatan ini ditulis sebagai media untuk pembelajaran mandiri metode-metode yang terkait
+dengan dinamika molekular.
+
+
+* Soft disk fluid
+
+Fluida disk/cakram lunak
+
+
